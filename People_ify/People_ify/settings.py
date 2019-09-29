@@ -53,10 +53,11 @@ ROOT_URLCONF = 'People_ify.urls'
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'BACKEND': 'django.template.backends.jinja2.Jinja2', #  did change here
         'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
+            'environment': 'People_ify.jinja2.environment' #  did change here
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
