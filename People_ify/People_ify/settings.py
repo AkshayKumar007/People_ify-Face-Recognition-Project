@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'login_auth'
 ]
 
 MIDDLEWARE = [
@@ -52,12 +53,19 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'People_ify.urls'
 
 TEMPLATES = [
-    {
-        'BACKEND': 'django.template.backends.jinja2.Jinja2', #  did change here
+   {
+        'BACKEND': 'django.template.backends.jinja2.Jinja2',
         'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
-            'environment': 'People_ify.jinja2.environment' #  did change here
+        'environment': 'People_ify.jinja2.environment'
+        },
+    },
+    {
+        'BACKEND': 'django.template.backends.djangoTemplates',
+        'DIRS': [],
+        'APP_DIRS': True,
+        'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
@@ -76,8 +84,12 @@ WSGI_APPLICATION = 'People_ify.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'tcbolbboepaiph',
+        'USER': 'tcbolbboepaiph',
+        'PASSWORD': '71b433cdee7a6974d01c9a90a80da6f2e585b8cf091cb93ae4faf6fb5d868b29',
+        'HOST': 'ec2-107-21-126-201.compute-1.amazonaws.com',
+        'PORT': '5432'
     }
 }
 
