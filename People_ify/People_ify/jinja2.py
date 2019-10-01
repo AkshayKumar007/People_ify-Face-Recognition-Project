@@ -1,8 +1,11 @@
 from django.contrib.staticfiles.storage import staticfiles_storage
-from django.urls import reversefrom jinja2 import Environmentdef environment(**options):
+from django.urls import reverse
+from jinja2 import Environment
+
+def environment(**options):
     env = Environment(**options)
     env.globals.update({
-        ‘static’: staticfiles_storage.url,
-        ‘url’: reverse,
+        'static': staticfiles_storage.url,
+        'url': reverse,
     })
     return env

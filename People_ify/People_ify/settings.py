@@ -62,7 +62,7 @@ TEMPLATES = [
         },
     },
     {
-        'BACKEND': 'django.template.backends.djangoTemplates',
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -85,7 +85,7 @@ WSGI_APPLICATION = 'People_ify.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'tcbolbboepaiph',
+        'NAME': 'cs50wp-project2',
         'USER': 'tcbolbboepaiph',
         'PASSWORD': '71b433cdee7a6974d01c9a90a80da6f2e585b8cf091cb93ae4faf6fb5d868b29',
         'HOST': 'ec2-107-21-126-201.compute-1.amazonaws.com',
