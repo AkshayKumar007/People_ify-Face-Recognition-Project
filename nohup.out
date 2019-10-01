@@ -1,0 +1,20 @@
+
+(xed:9623): libpeas-WARNING **: 00:03:52.726: Error initializing Python Plugin Loader: PyGObject initialization failed
+
+(xed:9623): libpeas-WARNING **: 00:03:52.726: Please check the installation of all the Python related packages required by libpeas and try again
+
+(xed:9623): libpeas-WARNING **: 00:03:52.726: Loader 'python3' is not a valid PeasPluginLoader instance
+ImportError: could not import gobject (error was: ModuleNotFoundError("No module named 'gi'",))
+
+** (xed:9623): WARNING **: 00:03:52.728: Failed to load builtin plugin: Text Size
+
+(xed:9623): Gtk-WARNING **: 00:03:56.225: Calling org.xfce.Session.Manager.Inhibit failed: GDBus.Error:org.freedesktop.DBus.Error.UnknownMethod: Method "Inhibit" with signature "susu" on interface "org.xfce.Session.Manager" doesn't exist
+
+events.js:167
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: EBADF: bad file descriptor, read
+Emitted 'error' event at:
+    at lazyFs.read (internal/fs/streams.js:165:12)
+    at FSReqWrap.wrapper [as oncomplete] (fs.js:460:17)

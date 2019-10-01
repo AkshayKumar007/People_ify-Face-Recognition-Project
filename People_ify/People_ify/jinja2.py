@@ -5,4 +5,4 @@ from django.urls import reversefrom jinja2 import Environmentdef environment(**o
         ‘static’: staticfiles_storage.url,
         ‘url’: reverse,
     })
- return env
+    return env
