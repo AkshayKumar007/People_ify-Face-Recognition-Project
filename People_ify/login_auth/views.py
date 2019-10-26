@@ -9,7 +9,7 @@ from django.contrib.auth.models import User
 def index(request):
     return render("People_ify/templates/index.html") #  index.html will be welcome screen
 
-#  very Bbasic! Will add code to check is user already exists
+#  very Basic! Will add code to check is user already exists
 def register_view(request):
     fname = request.POST["fname"]
     lname = request.POST["lname"]
@@ -40,6 +40,8 @@ def login_view(request):
         }
         return redirect("login")
 
+        
+@login_required(login_url="/login")
 def logout_view(request):
     logout(request)
     return redirect("index")
