@@ -31,13 +31,13 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'login_auth.apps.LoginAuthConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'login_auth'
 ]
 
 MIDDLEWARE = [
@@ -84,11 +84,11 @@ WSGI_APPLICATION = 'People_ify.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'cs50wp-project2',
-        'USER': 'tcbolbboepaiph',
-        'PASSWORD': '71b433cdee7a6974d01c9a90a80da6f2e585b8cf091cb93ae4faf6fb5d868b29',
-        'HOST': 'ec2-107-21-126-201.compute-1.amazonaws.com',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'People_ify',
+        'USER': 'postgres',
+        'PASSWORD': '******',
+        'HOST': '127.0.0.1',
         'PORT': '5432'
     }
 }
