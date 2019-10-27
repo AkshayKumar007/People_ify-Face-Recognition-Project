@@ -1,3 +1,4 @@
 Django
 Jinja2
 psycopg2
+azure-cognitiveservices-vision-face

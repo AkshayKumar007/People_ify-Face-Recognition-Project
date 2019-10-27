@@ -18,3 +18,6 @@ Error: EBADF: bad file descriptor, read
 Emitted 'error' event at:
     at lazyFs.read (internal/fs/streams.js:165:12)
     at FSReqWrap.wrapper [as oncomplete] (fs.js:460:17)
+
+(xed:6715): Gtk-WARNING **: 12:20:37.944: Calling org.xfce.Session.Manager.Inhibit failed: GDBus.Error:org.freedesktop.DBus.Error.UnknownMethod: Method "Inhibit" with signature "susu" on interface "org.xfce.Session.Manager" doesn't exist
+
