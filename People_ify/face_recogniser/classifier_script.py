@@ -3,6 +3,7 @@ code to upload images to azure-cognitiveservices-api and group them
 '''
 
 import asyncio, io, glob, os, sys, time, uuid, requests
+from os import listdir
 from urllib.parse import urlparse
 from io import BytesIO
 from PIL import Image, ImageDraw  # Pillow
@@ -34,7 +35,7 @@ def identify_face(image, face_ids, PERSON_GROUP_ID):
             print('Person for face ID {} is identified in {} with a confidence of {}.'.format(person.face_id, os.path.basename(image.name), person.candidates[0].confidence)) # Get topmost confidence score
 
 
-def extract_uploaded_image():
+def extract_uploaded_image(paths):
     '''
     Identify a face against a defined PersonGroup
     '''
@@ -52,25 +53,46 @@ def extract_uploaded_image():
     identify_face(image, face_ids) # PEERSON_GROUP_ID
 
 
-def main():
-    # Detect a face in an image that contains a single face
-    # basically code to check if there is a face, if not  
-    single_face_image_url = 'https://www.biography.com/.image/t_share/MTQ1MzAyNzYzOTgxNTE0NTEz/john-f-kennedy---mini-biography.jpg'
-    single_image_name = os.path.basename(single_face_image_url)
-    detected_faces = face_client.face.detect_with_url(url=single_face_image_url)  #  extracting name of file from url
-    if not detected_faces:
-        raise Exception('No face detected from image {}'.format(single_image_name))
-        #  add code to sort in 'objects/ no human' folder
+def main(username):
+    '''
+        Detect a face in an image that contains a single face
+        basically code to check if there is a face, if not  
+    '''
+    # get all 'files' inside upload/username directory
+    folder_path = "/home/akshay/Code_/code/People_ify/People_ify/uploads/" + str(username)  # will have to change while hosting!!!
+    onlyfiles = [f for f in listdir(folder_path) if os.path.isfile(os.path.join(folder_path, f))] 
+
+    path_list = []
+    for f in onlyfiles:    # create pathname for all images
+        img_path = glob.glob(os.path.join(folder_path, f))
+        path_list.append(img_path)
 
 
-    # Display the detected 'face ID' in the first single-face image.
-    # Face IDs are used for comparison to faces (their IDs) detected in other images.
-    print('Detected face ID from', single_image_name, ':')
-    for face in detected_faces: 
-        print (face.face_id)
-    print()
-    # Save this ID for use in Find Similar
-    first_image_face_ID = detected_faces[0].face_id
+    img_with_faces = []
+    for f in path_list:
+        image = open(f, 'r+b')
+        detected_faces = face_client.face.detect_with_stream(image)
+
+        if not detected_faces:
+            pass  # "move" image to username/miscellaneous/ directory
+        else:
+            img_with_faces.append(f)
+
+    extract_uploaded_image(img_with_faces)
+
+    # detected_faces = face_client.face.detect_with_url(url=single_face_image_url)  #  extracting name of file from url
+    # if not detected_faces:
+    #     raise Exception('No face detected from image {}'.format(single_image_name))
+    #     #  add code to sort in 'objects/ no human' folder
+
+    # # Display the detected 'face ID' in the first single-face image.
+    # # Face IDs are used for comparison to faces (their IDs) detected in other images.
+    # print('Detected face ID from', single_image_name, ':')
+    # for face in detected_faces: 
+    #     print (face.face_id)
+    # print()
+    # # Save this ID for use in Find Similar
+    # first_image_face_ID = detected_faces[0].face_id
 
 
 
