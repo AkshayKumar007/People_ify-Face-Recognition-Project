@@ -2,7 +2,7 @@
 code to upload images to azure-cognitiveservices-api and group them
 '''
 
-import asyncio, io, glob, os, sys, time, uuid, requests
+import asyncio, io, glob, os, sys, time, uuid, requests, shutil
 from os import listdir
 from urllib.parse import urlparse
 from io import BytesIO
@@ -21,44 +21,50 @@ face_client = FaceClient(ENDPOINT, CognitiveServicesCredentials(KEY))
 
 def identify_face(image, face_ids, image_n_faces,PERSON_GROUP_ID):
     # Identify faces
-    images = list(image_n_faces.keys())
-    for image in images:
+    for image in list(image_n_faces.keys()):
         for face in image_n_faces[image]:
             result = face_client.face.identify(face.id, PERSON_GROUP_ID)  # have to write code for if there are no Person/ or no images in all Persons, in Person group.
             if not result:
-                pass
+                person = face_client.person_group_person.create(PERSON_GROUP_ID, face.id)  # define a new person 
+                w = open(image, 'r+b')  # correct 
+                face_client.person_group_person.add_face_from_stream(PERSON_GROUP_ID, person.person_id, w)  # add face to person
+                try:
+                    os.mkdir("/home/akshay/Code_/code/username/" + str(face.id))  # creates a directory for new face_id
+                    n = "/home/akshay/Code_/code/username/" + str(face.id)  # moves image from uploads directory to new directory
+                    shutil.move(image, n)
+                except FileExistsError:  # if directory exists 
+                    n = "/home/akshay/Code_/code/username/" + str(face.id)  # moves image from uploads directory to new directory
+                    shutil.move(image, n)
+                    
             else:
-                person = face_client.person_group_person.create(PERSON_GROUP_ID, x)
+                """
+                may have to remove for-loop if result is not iterable
+                """ 
+                for person in result:  # in case face matches more than 1 image 
+                    w = open(image, 'r+b')
+                    face_client.person_group_person.add_face_from_stream(PERSON_GROUP_ID, person.person_id, w)
+                    try:
+                        os.mkdir("/home/akshay/Code_/code/username/" + str(face.id))  # creates a directory for new face_id
+                        n = "/home/akshay/Code_/code/username/" + str(face.id)  # moves image from uploads directory to new directory
+                        shutil.move(image, n)
 
-    results = face_client.face.identify(face_ids, PERSON_GROUP_ID)
-    print('Identifying faces in {}')
-    if not results:
-        # Define new persons
-        for x in face_ids:
-            person = face_client.person_group_person.create(PERSON_GROUP_ID, x)
-            # create a seperate folder for this person
-            # print('No person identified in the person group for faces from the{}.'.format(os.path.basename(image.name)))
-    else:
-        for person in results:
-            # move image from upload directory to directory for matched face_id
-            print('Person for face ID {} is identified in {} with a confidence of {}.'.format(person.face_id, os.path.basename(image.name), person.candidates[0].confidence)) # Get topmost confidence score
+                    except FileExistsError:  # if directory exists 
+                        n = "/home/akshay/Code_/code/username/" + str(face.id)  # moves image from uploads directory to new directory
+                        shutil.move(image, n)
+                    
+    # results = face_client.face.identify(face_ids, PERSON_GROUP_ID)
+    # print('Identifying faces in {}')
+    # if not results:
+    #     # Define new persons
+    #     for x in face_ids:
+    #         person = face_client.person_group_person.create(PERSON_GROUP_ID, x)
+    #         # create a seperate folder for this person
+    #         # print('No person identified in the person group for faces from the{}.'.format(os.path.basename(image.name)))
+    # else:
+    #     for person in results:
+    #         # move image from upload directory to directory for matched face_id
+    #         print('Person for face ID {} is identified in {} with a confidence of {}.'.format(person.face_id, os.path.basename(image.name), person.candidates[0].confidence)) # Get topmost confidence score
 
-def extract_uploaded_image(paths):
-    '''
-    Identify a face against a defined PersonGroup
-    '''
-    # Reference image for testing against
-    group_photo = 'test-image-person-group.jpg'
-    IMAGES_FOLDER = os.path.join(os.path.dirname(os.path.realpath(__file__)))  #  change path for directory where just-uploaded pictures will be stored 
-    # Get test image
-    test_image_array = glob.glob(os.path.join(IMAGES_FOLDER, group_photo)) #  change as per above
-    image = open(test_image_array[0], 'r+b')
-    # Detect faces
-    face_ids = []
-    faces = face_client.face.detect_with_stream(image)
-    for face in faces:
-        face_ids.append(face.face_id)
-    identify_face(image, face_ids) # PEERSON_GROUP_ID
 
 def main(username):
     '''
@@ -111,3 +117,21 @@ if "__name__" == "__main__":
     # print()
     # # Save this ID for use in Find Similar
     # first_image_face_ID = detected_faces[0].face_id
+
+
+# def extract_uploaded_image(paths):
+#     '''
+#     Identify a face against a defined PersonGroup
+#     '''
+#     # Reference image for testing against
+#     group_photo = 'test-image-person-group.jpg'
+#     IMAGES_FOLDER = os.path.join(os.path.dirname(os.path.realpath(__file__)))  #  change path for directory where just-uploaded pictures will be stored 
+#     # Get test image
+#     test_image_array = glob.glob(os.path.join(IMAGES_FOLDER, group_photo)) #  change as per above
+#     image = open(test_image_array[0], 'r+b')
+#     # Detect faces
+#     face_ids = []
+#     faces = face_client.face.detect_with_stream(image)
+#     for face in faces:
+#         face_ids.append(face.face_id)
+#     identify_face(image, face_ids) # PERSON_GROUP_ID
