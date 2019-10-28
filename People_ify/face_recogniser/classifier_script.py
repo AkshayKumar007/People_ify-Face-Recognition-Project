@@ -19,8 +19,17 @@ ENDPOINT = os.environ['FACE_ENDPOINT']
 face_client = FaceClient(ENDPOINT, CognitiveServicesCredentials(KEY))
 
 
-def identify_face(image, face_ids, PERSON_GROUP_ID):
+def identify_face(image, face_ids, image_n_faces,PERSON_GROUP_ID):
     # Identify faces
+    images = list(image_n_faces.keys())
+    for image in images:
+        for face in image_n_faces[image]:
+            result = face_client.face.identify(face.id, PERSON_GROUP_ID)  # have to write code for if there are no Person/ or no images in all Persons, in Person group.
+            if not result:
+                pass
+            else:
+                person = face_client.person_group_person.create(PERSON_GROUP_ID, x)
+
     results = face_client.face.identify(face_ids, PERSON_GROUP_ID)
     print('Identifying faces in {}')
     if not results:
@@ -33,7 +42,6 @@ def identify_face(image, face_ids, PERSON_GROUP_ID):
         for person in results:
             # move image from upload directory to directory for matched face_id
             print('Person for face ID {} is identified in {} with a confidence of {}.'.format(person.face_id, os.path.basename(image.name), person.candidates[0].confidence)) # Get topmost confidence score
-
 
 def extract_uploaded_image(paths):
     '''
@@ -52,11 +60,10 @@ def extract_uploaded_image(paths):
         face_ids.append(face.face_id)
     identify_face(image, face_ids) # PEERSON_GROUP_ID
 
-
 def main(username):
     '''
-        Detect a face in an image that contains a single face
-        basically code to check if there is a face, if not  
+        Detect faces in images that are just uploaded, basically code to check if there is a face, if not  
+        and then create a dictionary with {"image_path": [face0, face2, face3, ...]} structure
     '''
     # get all 'files' inside upload/username directory
     folder_path = "/home/akshay/Code_/code/People_ify/People_ify/uploads/" + str(username)  # will have to change while hosting!!!
@@ -67,8 +74,7 @@ def main(username):
         img_path = glob.glob(os.path.join(folder_path, f))
         path_list.append(img_path)
 
-
-    img_with_faces = []
+    img_with_faces = {} # key is path to image, value is 'list' of detected faces  
     for f in path_list:
         image = open(f, 'r+b')
         detected_faces = face_client.face.detect_with_stream(image)
@@ -76,11 +82,23 @@ def main(username):
         if not detected_faces:
             pass  # "move" image to username/miscellaneous/ directory
         else:
-            img_with_faces.append(f)
+            img_with_faces[f] = []
+            for face in detected_faces:
+                img_with_faces[f].append(face)
 
-    extract_uploaded_image(img_with_faces)
+    identify_face(img_with_faces)
 
-    # detected_faces = face_client.face.detect_with_url(url=single_face_image_url)  #  extracting name of file from url
+    
+if "__name__" == "__main__":
+    main()
+
+
+# for a new user
+# PERSON_GROUP_ID = 'my-unique-person-group'
+# face_client.person_group.create(person_group_id=PERSON_GROUP_ID, name=PERSON_GROUP_ID)
+
+
+# detected_faces = face_client.face.detect_with_url(url=single_face_image_url)  #  extracting name of file from url
     # if not detected_faces:
     #     raise Exception('No face detected from image {}'.format(single_image_name))
     #     #  add code to sort in 'objects/ no human' folder
@@ -93,14 +111,3 @@ def main(username):
     # print()
     # # Save this ID for use in Find Similar
     # first_image_face_ID = detected_faces[0].face_id
-
-
-
-
-if "__name__" == "__main__":
-    main()
-
-
-# for a new user
-# PERSON_GROUP_ID = 'my-unique-person-group'
-# face_client.person_group.create(person_group_id=PERSON_GROUP_ID, name=PERSON_GROUP_ID)
