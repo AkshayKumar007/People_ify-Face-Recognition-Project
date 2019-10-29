@@ -19,7 +19,7 @@ def register_view(request):
     try:
         u = User.objects.create_user(username=uname,first_name=fname, last_name=lname, email=email, password=passwd)
         u.save()
-        return HttpResponseRedirect("homepage") #  check
+        return HttpResponseRedirect("homepage")  # check
     except:
         context = {
             "message": "Something went wrong!"
@@ -38,7 +38,7 @@ def login_view(request):
         context = { 
             "message" : "Invalid email or password"
         }
-        return redirect("login")
+        return redirect("login", context)
 
         
 @login_required(login_url="/login")
