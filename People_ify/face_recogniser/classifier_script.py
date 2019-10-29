@@ -66,7 +66,7 @@ def identify_face(image, face_ids, image_n_faces,PERSON_GROUP_ID):
     #         print('Person for face ID {} is identified in {} with a confidence of {}.'.format(person.face_id, os.path.basename(image.name), person.candidates[0].confidence)) # Get topmost confidence score
 
 
-def main(username):
+def segregate(username):
     '''
         Detect faces in images that are just uploaded, basically code to check if there is a face, if not  
         and then create a dictionary with {"image_path": [face0, face2, face3, ...]} structure
@@ -94,9 +94,6 @@ def main(username):
 
     identify_face(img_with_faces)
 
-    
-if "__name__" == "__main__":
-    main()
 
 
 # for a new user

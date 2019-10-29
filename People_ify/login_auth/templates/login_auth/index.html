@@ -1,0 +1,18 @@
+{% extendes layout.html %}
+{% block title %} People_ify {% endlock %}
+{% block style %} 
+    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='index_stl.css') }}"> -->
+    <link rel="stylesheet" href="/home/akshay/Code_/code/People_ify/People_ify/login_auth/static/login_auth/index.css">
+    <!-- <script src="{{ url_for('static', filename='index.js') }}"></script> -->
+    <script src="/home/akshay/Code_/code/People_ify/People_ify/login_auth/static/login_auth/index.js"></script>
+
+{% endblock %}
+{% block body %}
+    <div id="mySidebar" class="sidebar">
+        <a href="#" class="closebtn" onclick="closeNav()">☰</a>
+        <a href="#">About</a>
+        <a href="#">Services</a>
+        <a href="#">Clients</a>
+        <a href="#">Contact</a>
+    </div>
+{% endblock %}
