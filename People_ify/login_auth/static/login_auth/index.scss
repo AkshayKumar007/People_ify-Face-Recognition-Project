@@ -1,6 +1,6 @@
 .sidebar {
   height: 100%;
-  width: 0px;
+  width: 63px;
   position: fixed;
   z-index: 1;
   top: 0;
@@ -12,7 +12,7 @@
 }
 
 .sidebar a {
-  padding: 8px 8px 8px 32px;
+  padding: 8px 8px 8px 8px;
   text-decoration: none;
   font-size: 25px;
   color: #818181;
@@ -21,29 +21,21 @@
 }
 
 .sidebar a:hover {
-  color: #f1f1f1;
+  color: tomato;
 }
 
 .sidebar .closebtn {
   position: absolute;
   top: 0;
-  right: 25px;
+  right: 10px;
   font-size: 36px;
-  margin-left: 50px;
+  margin-left: 55px;
+}
+.sidebar .opt {
+  position:relative;
+  left:250px;
 }
 
-.openbtn {
-  font-size: 20px;
-  cursor: pointer;
-  background-color: #111;
-  color: white;
-  padding: 10px 15px;
-  border: none;
-}
-
-.openbtn:hover {
-  background-color: #444;
-}
 
 #main {
   transition: margin-left .5s;
