@@ -1,38 +1,23 @@
 {% extendes layout.html %}
 {% block title %} People_ify {% endlock %}
 {% block style %} 
+    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='index_stl.css') }}"> -->
     <link rel="stylesheet" href="/home/akshay/Code_/code/People_ify/People_ify/login_auth/static/login_auth/index.css">
+    <!-- <script src="{{ url_for('static', filename='index.js') }}"></script> -->
+    <script src="/home/akshay/Code_/code/People_ify/People_ify/login_auth/static/login_auth/index.js"></script>
+
 {% endblock %}
 {% block body %}
-    <nav role="navigation">
-        <div id="menuToggle">
-        <!--
-        A fake / hidden checkbox is used as click reciever,
-        so you can use the :checked selector on it.
-        -->
-            <input type="checkbox" />
-            <!-- <br><br><br> -->
-            <!--
-            Some spans to act as a hamburger.
-            
-            They are acting like a real hamburger,
-            not that McDonalds stuff.
-            -->
-            <span></span>
-            <span></span>
-            <span></span>
-        
-            <!--
-            Too bad the menu has to be inside of the button
-            but hey, it's pure CSS magic.
-            -->
-            <ul id="menu">
-                <a href="#"><li>Home</li></a>
-                <a href="#"><li>About</li></a>
-                <a href="#"><li>Info</li></a>
-                <a href="#"><li>Contact</li></a>
-                <a href="https://erikterwan.com/" target="_blank"><li>Show me more</li></a>
-            </ul>
-        </div>
-    </nav>
+    <div id="mySidebar" class="sidebar">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">=</a>
+        <a href="#">About</a>
+        <a href="#">Services</a>
+        <a href="#">Clients</a>
+        <a href="#">Contact</a>
+    </div>
+    <div id="main">
+        <button class="openbtn" onclick="openNav()">☰ Toggle Sidebar</button>  
+        <h2>Collapsed Sidebar</h2> <!--&#9776-->
+        <p>Click on the hamburger menu/bar icon to open the sidebar, and push this content to the right.</p>
+    </div>
 {% endblock %}
