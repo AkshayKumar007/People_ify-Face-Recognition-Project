@@ -12,23 +12,26 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // const a = document.querySelectorAll('.img1');
-    // a.style.animationPlayState() = 'paused';
     window.onscroll = () => {
         console.log('----');
         console.log(window.innerHeight);
         console.log(window.scrollY);
         console.log(document.body.offsetHeight);
-        if (window.scrollY >= window.innerHeight) {
-            // a.style.animationDirection =  "reverse";
-            document.querySelector('body').style.background = 'green';
 
+        if (window.scrollY + window.innerHeight >= 2 * window.innerHeight) {
+            document.querySelectorAll('.target').forEach(current_ele => {
+                current_ele.classList.remove('img1');                              
+            });
+            document.querySelector('body').style.background = 'green';  
         } else {
-            // a.style.animationDirection =  "normal";
+            document.querySelectorAll('.target').forEach(current_ele => {
+                current_ele.classList.add('img1');
+            });            
             document.querySelector('body').style.background = 'white';
         }
+        
     };
-  
-  
+    
 });
+
 
