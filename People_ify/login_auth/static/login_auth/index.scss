@@ -48,7 +48,7 @@
   .sidebar a {font-size: 18px;}
 }
 /* for image sliding*/
-@keyframes move {
+@keyframes mover {
 0% {
   top: -20%;
 }
@@ -57,9 +57,41 @@
 }
 }
 
+@keyframes _move {
+0% {
+  left:-30%;
+}
+100% {
+  left:0%;
+}
+}
+
+@keyframes move_ {
+0% {
+  right:-30%;
+}
+100% {
+  right:0%;
+}
+}
+
 .img1 {
 position: relative;
-animation-name: move;
-animation-duration: 2.5s;
+animation-name: mover;
+animation-duration: 2s;
+animation-fill-mode: forwards;
+}
+
+.img2 {
+position: relative;
+animation-name: _move;
+animation-duration: 2s;
+animation-fill-mode: forwards;
+}
+
+.img3 {
+position: relative;
+animation-name: move_;
+animation-duration: 2s;
 animation-fill-mode: forwards;
 }

@@ -19,14 +19,26 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log(document.body.offsetHeight);
 
         if (window.scrollY + window.innerHeight >= 2 * window.innerHeight) {
-            document.querySelectorAll('.target').forEach(current_ele => {
+            document.querySelectorAll('.target1').forEach(current_ele => {
                 current_ele.classList.remove('img1');                              
+            });
+            document.querySelectorAll('.target2').forEach(current_ele => {
+                current_ele.classList.remove('img2');                              
+            });
+            document.querySelectorAll('.target3').forEach(current_ele => {
+                current_ele.classList.remove('img3');                              
             });
             document.querySelector('body').style.background = 'green';  
         } else {
-            document.querySelectorAll('.target').forEach(current_ele => {
+            document.querySelectorAll('.target1').forEach(current_ele => {
                 current_ele.classList.add('img1');
-            });            
+            });   
+            document.querySelectorAll('.target2').forEach(current_ele => {
+                current_ele.classList.add('img2');
+            });         
+            document.querySelectorAll('.target3').forEach(current_ele => {
+                current_ele.classList.add('img3');
+            });  
             document.querySelector('body').style.background = 'white';
         }
         
