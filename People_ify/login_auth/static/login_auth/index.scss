@@ -47,3 +47,19 @@
   .sidebar {padding-top: 15px;}
   .sidebar a {font-size: 18px;}
 }
+/* for image sliding*/
+@keyframes move {
+0% {
+  top: -20%;
+}
+100% {
+  top: 1%;
+}
+}
+
+.img1 {
+position: relative;
+animation-name: move;
+animation-duration: 2.5s;
+animation-fill-mode: forwards;
+}
