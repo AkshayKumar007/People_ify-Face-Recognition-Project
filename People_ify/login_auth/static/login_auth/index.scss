@@ -5,7 +5,7 @@
   z-index: 1;
   top: 0;
   left: 0;
-  background-color: #111;
+  background-color: #000000;
   overflow-x: hidden;
   transition: 0.5s;
   padding-top: 60px;
@@ -94,4 +94,59 @@ position: relative;
 animation-name: move_;
 animation-duration: 2s;
 animation-fill-mode: forwards;
+}
+
+.intrnl_body {
+/* padding-left: 100px; */
+width: 100%;
+padding-top: 30px;
+}
+
+.block3 {
+padding-top: 30px;
+padding-bottom: 30px;
+padding-left: 90px;
+background-color: #131112;
+color: white;
+}
+
+.block4 {
+padding-top: 30px;
+padding-bottom: 30px;
+padding-left: 63px;
+}
+
+.block5 {
+padding-top: 27px;
+padding-bottom: 30px;
+background-color: #292929;
+}
+
+.block6 {
+height: 45px;
+width: 101%;
+background-color: #131112;
+}
+
+.col-md-2  h4{
+color: #e0e0e0;
+}
+
+.col-md-2 li{
+color: #7d7d7d;
+}
+.col-md-2 p{
+color: #7d7d7d;
+}
+.block5 .col-md-6 {
+color: #e0e0e0;
+padding-left: 120px;
+}
+.block5 .col-md-6 img {
+/* background-color: #e0e0e0; */
+height: 40px;
+}
+
+.carousel-item img {
+height: 540px;
 }

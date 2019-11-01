@@ -12,6 +12,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    $('.carousel').carousel({
+        interval: 3000
+      });
+
     window.onscroll = () => {
         console.log('----');
         console.log(window.innerHeight);
@@ -28,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
             document.querySelectorAll('.target3').forEach(current_ele => {
                 current_ele.classList.remove('img3');                              
             });
-            document.querySelector('body').style.background = 'green';  
+            document.querySelector('body').style.background = '#e0e0e0';  
         } else {
             document.querySelectorAll('.target1').forEach(current_ele => {
                 current_ele.classList.add('img1');
