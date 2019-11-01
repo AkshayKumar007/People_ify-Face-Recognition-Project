@@ -1,0 +1,54 @@
+{% extendes layout.html %}
+{% block title %} People_ify {% endlock %}
+{% block style %} 
+    <!-- <link rel="stylesheet" href="{{ url_for('static/login_auth', filename='index_stl.css') }}"> -->
+    <link rel="stylesheet" href="/home/akshay/Code_/code/People_ify/People_ify/login_auth/static/login_auth/login.css"/>
+    <!-- <script src="{{ url_for('static/login_auth', filename='index.js') }}"></script> -->
+    <script src="/home/akshay/Code_/code/People_ify/People_ify/login_auth/static/login_auth/login.js"></script>
+
+{% endblock %}
+
+{% block body %}
+<div id="mySidebar" class="sidebar block1">
+        <a href="#" class="closebtn">☰</a>
+        <a class="opt" href="#">About</a>    
+        <a class="opt" href="#">Sign Up</a> 
+        <a class="opt" href="#">Sign In</a>  
+        <a class="opt" href="#">Contact</a>     
+    </div>
+    <div class="block2">
+        <div class="row">
+            <div class="col-md-6 sidecover">
+                <img src="signin2.jpg" alt="sidecover" style="width: 111%;"/ >
+                <!-- style="height: 650px; width: 100%;" -->
+            </div>  
+            <div class="col-md-6">
+                <div class="container loginBocx">     
+                    <br><br><br><br><br>                        
+                    <img class="loginBocx" src="LOGO.png" alt="People_ify" style="width: 55%; padding-left: 100px; float:inline-start;">  
+                    <br><br><br>  
+                                  
+                    <form class="form-signup" id="form"> <!--for my own styling-->
+                        <span class="loginBocx">Crafted for the people who care about People.</span>
+                        <!-- <br> -->
+                        <!-- <div class="text-left"><h2><b>Login</b></h2></div> -->
+                        <div id="message">                        
+                            <!--filled by JS-->
+                        </div>
+                         
+                        <div class="form-label-group">
+                            <input type="email" id="label-email" class="form-control b1" style="height: 50px; padding-left: 20px;" placeholder="Your Email" required />
+                            <label for="label-email">Your Email</label>
+                        </div>                            
+                        <div class="form-label-group">
+                            <input type="password" id="label-password" class="form-control b1" style="height: 50px; padding-left: 20px;" placeholder="Password" required />
+                            <label for="label-password">Password</label>
+                        </div>          
+                        <button class="btn btn-lg btn-dark btn-block b1" type="submit">Sign in</button>               
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="row footR"> </div>
+    </div>
+{% endblock %}
