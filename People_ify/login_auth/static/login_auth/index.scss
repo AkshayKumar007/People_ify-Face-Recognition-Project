@@ -50,29 +50,86 @@
 /* for image sliding*/
 @keyframes mover {
 0% {
-  top: -20%;
+  top: -20%;	
+  opacity: 0%;	
+}
+25% {
+  opacity: 0%;
 }
 100% {
   top: 1%;
-}
-}
-
-@keyframes _move {
-0% {
-  left:-30%;
-}
-100% {
-  left:0%;
+  opacity: 100%;
 }
 }
 
 @keyframes move_ {
 0% {
-  right:-30%;
+  top:50%;
+  opacity: 0%;
+}
+55% {
+  opacity: 0%;
 }
 100% {
-  right:0%;
+  top:-30%;
+  opacity: 100%;
 }
+}
+
+@keyframes _move {
+0% {
+  top:60%;
+  opacity: 0%;
+}
+55% {
+  opacity: 0%;
+}
+100% {
+  top:-28%;
+  opacity: 100%;
+}
+}
+
+@keyframes textup {
+
+0% {
+  bottom:-40px;
+  opacity: 0%;
+}
+
+100% {
+  bottom: 0px;
+  opacity: 100%;
+}
+
+}
+
+@keyframes textup1 {
+
+0% {
+  bottom:-80px;
+  opacity: 0%;
+}
+
+100% {
+  bottom: 0px;
+  opacity: 100%;
+}
+
+}
+
+.htxt {
+font-size: 30px;
+font-weight: 600;
+position: relative;
+animation-name: textup;
+animation-duration: 1.25s;
+}
+
+.txt {
+position: relative;
+animation-name: textup1;
+animation-duration: 1.25s;
 }
 
 .img1 {
