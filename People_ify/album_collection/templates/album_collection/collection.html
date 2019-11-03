@@ -1,0 +1,10 @@
+{% extends layout.html %}
+{% block title %} My Albums {% endblock %}
+{% block style %}
+    <link rel="stylesheet" href="{{ url_for('static/login_auth', filename='index_stl.css') }}">
+    <script src="{{ url_for('static/login_auth', filename='index.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+    <h1>Hello, World!</h1>
+{% endblock %}
