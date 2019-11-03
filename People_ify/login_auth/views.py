@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
@@ -30,7 +30,7 @@ def register_view(request):
                 u = User.objects.create_user(username=uname,first_name=fname, last_name=lname, email=email, password=passwd)
                 u.save()
                 # change for album_collection 
-                return redirect("homepage")  # try HttpResponseRedirect
+                return redirect("homepage", userid=request.user.userid)  # try HttpResponseRedirect
             except:
                 return JsonResponse({"message": "Something went wrong!"})
 
@@ -45,7 +45,7 @@ def login_view(request):
         user = authenticate(request, email=email, password=passwd)
         if user is not None:
             login(request, user)
-            return redirect("homepage")  # 1. have to create homepage 2. also check for HttpResponseRedirect
+            return redirect("homepage", userid=request.user.userid)  # 1. have to create homepage 2. also check for HttpResponseRedirect
         else:
             return JsonResponse({"message": "Incorrect email or Password"})
 
