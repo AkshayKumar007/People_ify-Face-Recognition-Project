@@ -56,7 +56,7 @@ ROOT_URLCONF = 'People_ify.urls'
 TEMPLATES = [
    {
         'BACKEND': 'django.template.backends.jinja2.Jinja2',
-        'DIRS': [],
+        'DIRS': [],  # os.path.join(BASE_DIR, 'templates/jinja2'), ],
         'APP_DIRS': True,
         'OPTIONS': {
         'environment': 'People_ify.jinja2.environment'

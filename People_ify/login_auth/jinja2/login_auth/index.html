@@ -1,11 +1,8 @@
-{% extends base.html %}
+{% extends "login_auth/base.html" %}
 {% block title %} People_ify {% endblock %}
 {% block style %} 
-    <link rel="stylesheet" href="{{ url_for('static/login_auth', filename='index_stl.css') }}">
-    <!-- <link rel="stylesheet" href="/home/akshay/Code_/code/People_ify/People_ify/login_auth/static/login_auth/index.css"/> -->
-    <script src="{{ url_for('static/login_auth', filename='index.js') }}"></script>
-    <!-- <script src="/home/akshay/Code_/code/People_ify/People_ify/login_auth/static/login_auth/index.js"></script> -->
-
+    <link rel=”stylesheet” href="{{ static('login_auth/index.css') }}">
+    <script src="{{ static('login_auth/index.js') }}"></script>
 {% endblock %}
 {% block body %}
     <div id="mySidebar" class="sidebar block1">
