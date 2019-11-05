@@ -6,12 +6,12 @@ from django.contrib.auth.models import User
 
 # Create your views here.
 def index(request):
-    return render(request,"templates/login_auth/index.html")  # index.html will be welcome screen
+    return render(request,"login_auth/index.html")  # index.html will be welcome screen
 
 
 def register_view(request):
     if request.method == "GET":
-        return render(request,"templates/login_auth/register.html")
+        return render(request,"login_auth/register.html")
 
     elif request.method == "POST":
         fname = request.POST["fname"]
@@ -37,7 +37,7 @@ def register_view(request):
 
 def login_view(request):
     if request.method == "GET":
-        return render(request,"templates/login_auth/login.html")
+        return render(request,"login_auth/login.html")
 
     elif request.method == "POST":
         email = request.POST["email"]

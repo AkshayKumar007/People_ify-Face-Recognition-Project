@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'login_auth.apps.LoginAuthConfig',
+    'album_collection.apps.AlbumCollectionConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -87,7 +88,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'People_ify',
         'USER': 'postgres',
-        'PASSWORD': '******',
+        'PASSWORD': 'akshay',
         'HOST': '127.0.0.1',
         'PORT': '5432'
     }
