@@ -1,7 +1,7 @@
 {% extends "login_auth/base.html" %}
 {% block title %} People_ify {% endblock %}
 {% block style %} 
-    <link rel=”stylesheet” href="{{ static('login_auth/index.css') }}">
+    <link rel=”stylesheet” type="text/css" href="{{ static('login_auth/index.css') }}">
     <script src="{{ static('login_auth/index.js') }}"></script>
 {% endblock %}
 {% block body %}
@@ -16,16 +16,16 @@
     <div class="block 2">
         <div class="row">
             <div class="col-md-5 img1 target1" id="mybox1" style="padding-top: 50px;">
-                <img src="login_auth/static/login_auth/images/LOGO.png" alt="People_ify" style="width: 90%; padding-left: 200px; padding-top: 30px;"/>                
+                <img src="{{ static('login_auth/images/LOGO.png') }}" alt="People_ify" style="width: 90%; padding-left: 200px; padding-top: 30px;"/>                
             </div>
             <div class="col-md-2 img1 target1" style="padding-top: 50px; padding-right: 5px;">
-                <img src="login_auth/static/login_auth/images/pic1.jpg" alt="A" style="width: 100%; " />                
+                <img src="{{ static('login_auth/images/pic1.jpg') }}" alt="A" style="width: 100%; " />                
             </div>
             <div class="col-md-2 target1 img1" style="padding-right: 0.5px; padding-left: 5px;;">
-                <img src="login_auth/static/login_auth/images/pic2.jpg" alt="B" style="width: 100%; height: 77%" />
+                <img src="{{ static('login_auth/images/pic2.jpg') }}" alt="B" style="width: 100%; height: 77%" />
             </div>
             <div class="col-md-3 target1 img1" style="padding-right: 0px; padding-left: 0.5px;">
-                <img src="login_auth/static/login_auth/images/pic3.jpg" alt="C" style="width: 100%; padding-top: 26px;" />
+                <img src="{{ static('login_auth/images/pic3.jpg') }}" alt="C" style="width: 100%; padding-top: 26px;" />
             </div>
 
         </div>
@@ -33,10 +33,10 @@
         <div class="row">
             <div class="col-md-7"> </div>
             <div class="col-md-3 img2 target2">
-                <img src="login_auth/static/login_auth/images/pic4.jpg" alt="meme" style="width: 100%; padding-top: 5px;" />                
+                <img src="{{ static('login_auth/images/pic4.jpg') }}" alt="meme" style="width: 100%; padding-top: 5px;" />                
             </div>
             <div class="col-md-2 target3 img3">
-                <img src="login_auth/static/login_auth/images/pic5.jpg" alt="meme" style="width: 100%;" />
+                <img src="{{ static('login_auth/images/pic5.jpg') }}" alt="meme" style="width: 100%;" />
             </div>
         </div>
     </div>        

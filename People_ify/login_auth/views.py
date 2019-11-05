@@ -3,7 +3,6 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.contrib.auth.models import User
-# from jinja2 import Environment, FileSystemLoader
 
 # Create your views here.
 def index(request):
