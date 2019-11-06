@@ -1,15 +1,15 @@
 {% extends "login_auth/base.html" %}
 {% block title %} People_ify {% endblock %}
 {% block style %} 
-    <link rel=”stylesheet” type="text/css" href="{{ static('login_auth/css/index.css') }}" />
+    <link rel=”stylesheet” type="text/css" href="{{ static('login_auth/index.css') }}" />
     <script src="{{ static('login_auth/js/index.js') }}"></script>
 {% endblock %}
 {% block body %}
     <div id="mySidebar" class="sidebar block1">
         <a href="#" class="closebtn">☰</a>
         <a class="opt" href="#">About</a>    
-        <a class="opt" href="#">Sign Up</a> 
-        <a class="opt" href="#">Sign In</a>  
+        <a class="opt" href="{{ url('register_view') }}">Sign Up</a> 
+        <a class="opt" href="{{ url('login_view') }}">Sign In</a>  
         <a class="opt" href="#">Contact</a>     
     </div>
     <!--top-down movers-->

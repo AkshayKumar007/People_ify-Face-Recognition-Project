@@ -1,32 +1,26 @@
-{% extends "base.html" %}
-{% block title %} People_ify {% endblock %}
+{% extends "login_auth/base.html" %}
+{% block title %} People_ify: Sign-up {% endblock %}
 {% block style %} 
-    <!-- <link rel="stylesheet" href="{{ url_for('static/login_auth', filename='index_stl.css') }}"> -->
-    <link rel="stylesheet" href="/home/akshay/Code_/code/People_ify/People_ify/login_auth/static/login_auth/login.css"/>
-    <!-- <script src="{{ url_for('static/login_auth', filename='index.js') }}"></script> -->
-    <script src="/home/akshay/Code_/code/People_ify/People_ify/login_auth/static/login_auth/login.js"></script>
-
+    <link rel="stylesheet" type="text/css" href="{{ static('login_auth/register.css') }}"/>
+    <script src="{{ static('login_auth/js/register.js') }}"></script>
 {% endblock %}
-
 {% block body %}
     <div id="mySidebar" class="sidebar block1">
         <a href="#" class="closebtn">☰</a>
-        <a class="opt" href="#">About</a>    
-        <a class="opt" href="#">Sign Up</a> 
-        <a class="opt" href="#">Sign In</a>  
-        <a class="opt" href="#">Contact</a>     
+        <!-- <a class="opt" href="#">About</a>     -->
+        <a class="opt" href="{{ url('index') }}">Home Page</a> 
+        <a class="opt" href="{{ url('login_view') }}">Sign In</a>  
+        <!-- <a class="opt" href="#">Contact</a>      -->
     </div>
     <div class="block2">
         <div class="row">
             <div class="col-md-6 sidecover">
-                <img src="login_auth/static/login_auth/images/register3a.jpg" alt="sidecover" style="width: 120%; height:733px" />
-                <!-- style="width: 111%; -->
-                <!-- style="height: 650px; width: 100%;" -->
+                <img src="{{ static('login_auth/images/register3a.jpg') }}" alt="sidecover" style="width: 120%; height:733px" />
             </div>  
             <div class="col-md-6">
                 <div class="container loginBocx" style="padding-left:110px; padding-right: 10px; padding-bottom: 100px;">     
                     <br><br><br><br><br>                        
-                    <img src="login_auth/static/login_auth/images/LOGO.png" alt="People_ify" style="width: 55%; padding-left:57px; float:left;">  
+                    <img src="{{ static('login_auth/images/LOGO.png') }}" alt="People_ify" style="width: 55%; padding-left:57px; float:left;">  
                     <br><br><br>  
                                   
                     <form class="form-signup" id="form"> <!--for my own styling-->
