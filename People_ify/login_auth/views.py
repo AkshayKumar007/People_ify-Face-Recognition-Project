@@ -23,9 +23,9 @@ def register_view(request):
         res1 = User.objects.get(email=email)
         res2 = User.objects.get(username=uname)
         if res1 is not None:
-            return JsonResponse({"message": "email already registered! Please sign-in or use other email."}) 
+            return JsonResponse({"message": "no_email"}) 
         elif res2 is not None:
-            return JsonResponse({"message": "username already registered! Please use other Username."})
+            return JsonResponse({"message": "no_uname"})
         else:
             try:
                 u = User.objects.create_user(username=uname,first_name=fname, last_name=lname, email=email, password=passwd)
