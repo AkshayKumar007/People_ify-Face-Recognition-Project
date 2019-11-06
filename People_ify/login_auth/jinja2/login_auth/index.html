@@ -1,8 +1,8 @@
 {% extends "login_auth/base.html" %}
 {% block title %} People_ify {% endblock %}
 {% block style %} 
-    <link rel=”stylesheet” type="text/css" href="{{ static('login_auth/index.css') }}">
-    <script src="{{ static('login_auth/index.js') }}"></script>
+    <link rel=”stylesheet” type="text/css" href="{{ static('login_auth/css/index.css') }}" />
+    <script src="{{ static('login_auth/js/index.js') }}"></script>
 {% endblock %}
 {% block body %}
     <div id="mySidebar" class="sidebar block1">
@@ -60,13 +60,13 @@
                     </ol>
                     <div class="carousel-inner">
                         <div class="carousel-item active">
-                            <img class="d-block w-100" src="login_auth/static/login_auth/images/a1.jpeg" alt="First slide">
+                            <img class="d-block w-100" src="{{ static('login_auth/images/a1.jpe') }}g" alt="First slide">
                         </div>
                         <div class="carousel-item">
-                            <img class="d-block w-100" src="login_auth/static/login_auth/images/a2.png" alt="Second slide">
+                            <img class="d-block w-100" src="{{ static('login_auth/images/a2.png') }}" alt="Second slide">
                         </div>
                         <div class="carousel-item">
-                            <img class="d-block w-100" src="login_auth/static/login_auth/images/a3.jpg" alt="Third slide">
+                            <img class="d-block w-100" src="{{ static('login_auth/images/a3.jpg') }}" alt="Third slide">
                         </div>
                     </div>
                     <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -100,11 +100,11 @@
         <div class="row block5">
             <div class="col-md-6">
                 <h4><b> Join </b></h4><br/>
-                <img src="login_auth/static/login_auth/images/iconfinder_Github_669674.png" alt="github"/>
-                <img src="login_auth/static/login_auth/images/iconfinder_Twitter_194909.png" alt="twitter"/>
-                <img src="login_auth/static/login_auth/images/iconfinder_Facebook_194929.png" alt="facebook"/>
-                <img src="login_auth/static/login_auth/images/iconfinder_YouTube_194904.png" alt="youtube"/>
-                <img src="login_auth/static/login_auth/images/iconfinder_Intsagram_194923.png" alt="instagram"/>
+                <img src="{{ static('login_auth/images/iconfinder_Github_669674.png') }}" alt="github"/>
+                <img src="{{ static('login_auth/images/iconfinder_Twitter_194909.png') }}" alt="twitter"/>
+                <img src="{{ static('login_auth/images/iconfinder_Facebook_194929.png') }}" alt="facebook"/>
+                <img src="{{ static('login_auth/images/iconfinder_YouTube_194904.png') }}" alt="youtube"/>
+                <img src="{{ static('login_auth/images/iconfinder_Intsagram_194923.png') }}" alt="instagram"/>
             </div>
             <div class="col-md-2">
                 <h4 class="text-300 mb-4"><b>Features</b></h4>

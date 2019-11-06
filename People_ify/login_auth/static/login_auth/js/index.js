@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     $('.carousel').carousel({
         interval: 3000
-      });
+    });
 
     window.onscroll = () => {
         console.log('----');
