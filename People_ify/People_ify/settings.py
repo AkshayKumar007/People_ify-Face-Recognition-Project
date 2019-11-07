@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'login_auth.apps.LoginAuthConfig',
+    'album_collection.apps.AlbumCollectionConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -42,6 +43,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -55,7 +57,7 @@ ROOT_URLCONF = 'People_ify.urls'
 TEMPLATES = [
    {
         'BACKEND': 'django.template.backends.jinja2.Jinja2',
-        'DIRS': [],
+        'DIRS': [],  # os.path.join(BASE_DIR, 'templates/jinja2'), ],
         'APP_DIRS': True,
         'OPTIONS': {
         'environment': 'People_ify.jinja2.environment'
@@ -87,7 +89,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'People_ify',
         'USER': 'postgres',
-        'PASSWORD': '******',
+        'PASSWORD': 'akshay',
         'HOST': '127.0.0.1',
         'PORT': '5432'
     }
@@ -131,4 +133,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+STATICFILES_DIRS = (
+        os.path.join(BASE_DIR, 'static'),
+)
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # name of directory is staticfiles 
+
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFileStorage'

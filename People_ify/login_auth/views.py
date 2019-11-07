@@ -6,12 +6,13 @@ from django.contrib.auth.models import User
 
 # Create your views here.
 def index(request):
-    return render(request,"templates/login_auth/index.html")  # index.html will be welcome screen
+    # css_url = url_for('static', filename='js/main.js')
+    return render(request,"login_auth/index.html")  # index.html will be welcome screen
 
 
 def register_view(request):
     if request.method == "GET":
-        return render(request,"templates/login_auth/register.html")
+        return render(request,"login_auth/register.html")
 
     elif request.method == "POST":
         fname = request.POST["fname"]
@@ -22,9 +23,9 @@ def register_view(request):
         res1 = User.objects.get(email=email)
         res2 = User.objects.get(username=uname)
         if res1 is not None:
-            return JsonResponse({"message": "email already registered! Please sign-in or use other email."}) 
+            return JsonResponse({"message": "no_email"}) 
         elif res2 is not None:
-            return JsonResponse({"message": "username already registered! Please use other Username."})
+            return JsonResponse({"message": "no_uname"})
         else:
             try:
                 u = User.objects.create_user(username=uname,first_name=fname, last_name=lname, email=email, password=passwd)
@@ -32,12 +33,12 @@ def register_view(request):
                 # change for album_collection 
                 return redirect("homepage", userid=request.user.userid)  # try HttpResponseRedirect
             except:
-                return JsonResponse({"message": "Something went wrong!"})
+                return JsonResponse({"message": "wrong"})
 
 
 def login_view(request):
     if request.method == "GET":
-        return render(request,"templates/login_auth/login.html")
+        return render(request,"login_auth/login.html")
 
     elif request.method == "POST":
         email = request.POST["email"]
