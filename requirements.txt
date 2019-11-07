@@ -1,5 +1,8 @@
 Django
 Jinja2
 psycopg2
+psycopg2-binary
 azure-cognitiveservices-vision-face
 Pillow
+whitenoise
+dj-database-url

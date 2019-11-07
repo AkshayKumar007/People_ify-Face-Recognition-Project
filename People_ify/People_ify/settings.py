@@ -43,6 +43,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -132,9 +133,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
-# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-STATIC_ROOT = ''
-PROJECT_ROOT = os.path.normpath(os.path.dirname(__file__))
+
 STATICFILES_DIRS = (
-    os.path.join(PROJECT_ROOT, '..', 'static'),
+        os.path.join(BASE_DIR, 'static'),
 )
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # name of directory is staticfiles 
+
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFileStorage'

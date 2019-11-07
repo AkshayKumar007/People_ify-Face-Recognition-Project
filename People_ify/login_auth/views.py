@@ -33,7 +33,7 @@ def register_view(request):
                 # change for album_collection 
                 return redirect("homepage", userid=request.user.userid)  # try HttpResponseRedirect
             except:
-                return JsonResponse({"message": "Something went wrong!"})
+                return JsonResponse({"message": "wrong"})
 
 
 def login_view(request):
