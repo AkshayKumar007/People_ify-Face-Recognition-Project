@@ -50,7 +50,8 @@
                             <input type="password" id="label-password" class="form-control b1" style="height: 50px; padding-left: 20px;" placeholder="Password" required />
                             <label for="label-password">Password</label>
                         </div>          
-                        <button class="btn btn-lg btn-dark btn-block b1" type="submit">Sign in</button>               
+                        <!-- <button class="btn btn-lg btn-dark btn-block b1" type="submit">Sign in</button>-->
+                        <input name="csrfmiddlewaretoken" value="{{ csrf_token }}" type="submit">
                     </form>
                 </div>
             </div>

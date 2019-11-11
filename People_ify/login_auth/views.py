@@ -41,6 +41,7 @@ def login_view(request):
         return render(request,"login_auth/login.html")
 
     elif request.method == "POST":
+        print("I'm here")
         email = request.POST["email"]
         passwd = request.POST["passwd"]
         user = authenticate(request, email=email, password=passwd)

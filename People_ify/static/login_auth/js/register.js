@@ -18,11 +18,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const request = new XMLHttpRequest();
 
-        const fname = document.querySelector('#fname').value;
-        const lname = document.querySelector('#lname').value;
-        const uname = document.querySelector('#dname').value;
-        const email = document.querySelector('#email').value;
-        const passwd = document.querySelector('#passwd').value;
+        const fname = document.querySelector('#label-fname').value;
+        const lname = document.querySelector('#label-lname').value;
+        const uname = document.querySelector('#label-dname').value;
+        const email = document.querySelector('#label-email').value;
+        const passwd = document.querySelector('#label-password').value;
        
         request.open('POST', '/register');
         request.onload = () => {
