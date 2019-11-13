@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect, reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse
 from django.contrib.auth.models import User
+from django.http import JsonResponse
+import album_collection
 
 # Create your views here.
 def index(request):
@@ -15,6 +16,7 @@ def register_view(request):
         return render(request,"login_auth/register.html")
 
     elif request.method == "POST":
+        print("I'm here!")
         fname = request.POST["fname"]
         lname = request.POST["lname"]
         email = request.POST["email"]
@@ -30,8 +32,10 @@ def register_view(request):
             try:
                 u = User.objects.create_user(username=uname,first_name=fname, last_name=lname, email=email, password=passwd)
                 u.save()
+                login(request, u)
                 # change for album_collection 
-                return redirect("homepage", userid=request.user.userid)  # try HttpResponseRedirect
+                # return redirect("album_collection.views.homepage", userid=request.user.userid)  # try HttpResponseRedirect
+                return JsonResponse({"message":"success", "userid":request.user.userid})
             except:
                 return JsonResponse({"message": "wrong"})
 
@@ -52,7 +56,7 @@ def login_view(request):
             return JsonResponse({"message": "Incorrect email or Password"})
 
         
-@login_required(login_url="/login")
+@login_required(login_url="/login/")
 def logout_view(request):
     logout(request)
     return redirect("index")

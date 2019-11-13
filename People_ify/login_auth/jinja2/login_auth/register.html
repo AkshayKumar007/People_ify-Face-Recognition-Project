@@ -20,13 +20,12 @@
             <div class="col-md-6">
                 <div class="container loginBocx" style="padding-left:110px; padding-right: 10px; padding-bottom: 100px;">     
                     <br><br><br><br><br>                        
-                    <img src="{{ static('login_auth/images/LOGO.png') }}" alt="People_ify" style="width: 55%; padding-left:57px; float:left;">  
+                    <img src="{{ static('login_auth/images/LOGO.png') }}" alt="People_ify" style="width: 55%; padding-left:57px; float:left;" />  
                     <br><br><br>  
                                   
-                    <form class="form-signup" id="form"> <!--for my own styling-->
+                    <form class="form-signup" id="form"> {{ csrf_input }}
+                        <!-- <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}" /> -->
                         <span>Crafted for the people who care about People.</span>
-                        <!-- <br> -->
-                        <!-- <div class="text-left"><h2><b>Login</b></h2></div> -->
                         <div id="message">                        
                             <!--filled by JS-->
                         </div>
@@ -49,9 +48,9 @@
                         <div class="form-label-group">
                             <input type="password" id="label-password" class="form-control b1" style="height: 50px; padding-left: 20px;" placeholder="Password" required />
                             <label for="label-password">Password</label>
-                        </div>          
-                        <!-- <button class="btn btn-lg btn-dark btn-block b1" type="submit">Sign in</button>-->
-                        <input name="csrfmiddlewaretoken" value="{{ csrf_token }}" type="submit">
+                        </div>  
+                        <input type="submit" class="btn btn-lg btn-dark btn-block b1" value="Submit"/>        
+                        <!-- <button class="btn btn-lg btn-dark btn-block b1" type="submit" value="Submit">Sign up</button>                -->
                     </form>
                 </div>
             </div>
