@@ -6,10 +6,13 @@ from django.contrib.auth.models import User
 # Create your views here.
 
 @login_required(login_url="/login")
-def homepage(request):
+def homepage(request, userid):
     if request.method == "GET":
         context = {
-            "uname": request.user.username
+            "uname": userid
         }
+        print("I'm here!")
         return render(request, "album_collection/collection.html", context)
+        # return JsonResponse({"message":"OK"})
+        
 # export DJANGO_SETTINGS_MODULE=People_ify.settings

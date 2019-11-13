@@ -1,6 +1,6 @@
-from django.urls import path
+from django.urls import path, re_path
 from . import views
 
 urlpatterns = [
-    path("album-collection/<str:userid>", views.homepage, name="homepage")
+    path("<str:userid>", views.homepage, name="homepage")
 ]

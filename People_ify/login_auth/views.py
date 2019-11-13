@@ -35,15 +35,14 @@ def register_view(request):
         elif res2 is not None:
             return JsonResponse({"message": "no_uname"})
         else:
-            # try:
-            u = User.objects.create_user(username=uname,first_name=fname, last_name=lname, email=email, password=passwd)
-            u.save()
-            login(request, u)
-            # change for album_collection 
-            # return redirect("album_collection.views.homepage", userid=request.user.userid)  # try HttpResponseRedirect
-            return JsonResponse({"message":"success", "userid":uname})
-            # except:
-            #     return JsonResponse({"message": "wrong"})
+            try:
+                u = User.objects.create_user(username=uname,first_name=fname, last_name=lname, email=email, password=passwd)
+                u.save()
+                login(request, u)
+                # change for album_collection 
+                return JsonResponse({"message":"success", "userid":uname})
+            except:
+                return JsonResponse({"message": "wrong"})
 
 
 def login_view(request):
@@ -51,13 +50,11 @@ def login_view(request):
         return render(request,"login_auth/login.html")
 
     elif request.method == "POST":
-        # print("I'm here")
         uname = request.POST["uname"]
         passwd = request.POST["passwd"]
         user = authenticate(request, username=uname, password=passwd)
         if user is not None:
             login(request, user)
-            # return redirect("homepage", userid=request.user.userid)  # 1. have to create homepage 2. also check for HttpResponseRedirect
             return JsonResponse({"message":"success", "userid":uname})
         elif user is None:
             return JsonResponse({"message": "iep"})

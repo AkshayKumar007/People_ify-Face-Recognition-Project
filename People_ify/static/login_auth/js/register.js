@@ -52,8 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     $('#message').html('<div class="alert alert-danger" role="alert">Error! Something went wrong."</div>')
                 }
                 else if(data.message == "success"){
-                    var x = "/album-collection/" + data.userid;
-                    $.get(x);
+                    window.location.replace("/album_collection/"+data.userid);
                 }
             }
         });

@@ -43,13 +43,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     $('#message').html('<div class="alert alert-danger" role="alert">Invalid email or password!"</div>')
                 }
                 else if(data.message == "success"){
-                    alert("inside!");
-                    var x = "/album-collection/" + data.userid;
-                    $.get(x);
+                    window.location.replace("/album_collection/"+data.userid);
                 }
             }
         });
         console.log("form submitted yaar!");
-        return false;
+        return true;
     });
 });
+ // var x = "/album_collection/" + data.userid;
+    // $.get(x, {"userid":data.userid}, function success(data){
+    //  
+    // });
