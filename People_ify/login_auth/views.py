@@ -1,4 +1,4 @@
-import os, shutil
+import os
 # azure
 from azure.cognitiveservices.vision.face import FaceClient
 from msrest.authentication import CognitiveServicesCredentials
@@ -10,6 +10,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.http import JsonResponse
+from django.conf import settings
 
 KEY = os.environ['FACE_SUBSCRIPTION_KEY']
 ENDPOINT = 'https://centralindia.api.cognitive.microsoft.com/'
@@ -52,8 +53,11 @@ def register_view(request):
                 # create PersonGroup
                 PERSON_GROUP_ID = uname.lower()
                 face_client.person_group.create(person_group_id=PERSON_GROUP_ID, name=PERSON_GROUP_ID)
-
-               
+                # base = os.path.abspath(os.path.dirname(__name__))  # point to Project Directory People_ify
+                base = settings.BASE_DIR
+                userdirc = base + "/pictures/" + uname
+                os.makedirs(userdirc)  # create a seperate directory for each user
+                           
                 # change for album_collection 
                 return JsonResponse({"message":"success", "userid":uname})
             except:
@@ -69,6 +73,7 @@ def login_view(request):
         passwd = request.POST["passwd"]
         user = authenticate(request, username=uname, password=passwd)
         if user is not None:
+            PERSON_GROUP_ID = uname.lower()
             login(request, user)
             return JsonResponse({"message":"success", "userid":uname})
         elif user is None:
