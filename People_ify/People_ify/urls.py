@@ -19,5 +19,6 @@ from django.urls import include, path
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('login_auth.urls')),
+    path('', include('django.contrib.auth.urls')),  # for login and logout
     path('album_collection/<int:userid>', include('album_collection.urls'))
 ]

@@ -41,15 +41,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 csrfmiddlewaretoken:$('input[name=csrfmiddleware]').val()
             },
             success:function(data){
-                alert("Hurray!");
+                // alert("Hurray!");
                 if (data.message == "no_email") {
-                    $('#message').html('<div class="alert alert-primary" role="alert">Error! Looks like email already exists."</div>')
+                    $('#message').html('<div class="alert alert-danger" role="alert">Error! Looks like email already exists."</div>')
                 }
                 else if(data.message == "no_uname"){
-                    $('#message').html('<div class="alert alert-primary" role="alert">Error! Looks like Username is already taken."</div>');
+                    $('#message').html('<div class="alert alert-danger" role="alert">Error! Looks like Username is already taken."</div>');
                 }
                 else if(data.message=="wrong"){
-                    $('#message').html('<div class="alert alert-primary" role="alert">Error! Something went wrong."</div>')
+                    $('#message').html('<div class="alert alert-danger" role="alert">Error! Something went wrong."</div>')
                 }
                 else if(data.message == "success"){
                     var x = "/album-collection/" + data.userid;
