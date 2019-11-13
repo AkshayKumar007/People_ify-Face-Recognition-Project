@@ -1,9 +1,20 @@
+import os, shutil
+# azure
+from azure.cognitiveservices.vision.face import FaceClient
+from msrest.authentication import CognitiveServicesCredentials
+from azure.cognitiveservices.vision.face.models import TrainingStatusType, Person, SnapshotObjectType, OperationStatus
+
+# django
 from django.shortcuts import render, redirect, reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.http import JsonResponse
-import album_collection
+
+KEY = os.environ['FACE_SUBSCRIPTION_KEY']
+ENDPOINT = 'https://centralindia.api.cognitive.microsoft.com/'
+face_client = FaceClient(ENDPOINT, CognitiveServicesCredentials(KEY))
+
 
 # Create your views here.
 def index(request):
@@ -16,11 +27,10 @@ def register_view(request):
         return render(request,"login_auth/register.html")
 
     elif request.method == "POST":
-        print("I'm here!")
         fname = request.POST["fname"]
         lname = request.POST["lname"]
         email = request.POST["email"]
-        uname = request.POST["uname"]
+        uname = request.POST["uname"]  # username shall always be lowercase 
         passwd = request.POST["passwd"] 
         try:
             res1 = User.objects.get(email=email)
@@ -39,6 +49,11 @@ def register_view(request):
                 u = User.objects.create_user(username=uname,first_name=fname, last_name=lname, email=email, password=passwd)
                 u.save()
                 login(request, u)
+                # create PersonGroup
+                PERSON_GROUP_ID = uname.lower()
+                face_client.person_group.create(person_group_id=PERSON_GROUP_ID, name=PERSON_GROUP_ID)
+
+               
                 # change for album_collection 
                 return JsonResponse({"message":"success", "userid":uname})
             except:
