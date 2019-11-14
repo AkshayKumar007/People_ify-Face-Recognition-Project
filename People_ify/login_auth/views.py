@@ -1,4 +1,4 @@
-import os
+import os, shutil, sys, time
 # azure
 from azure.cognitiveservices.vision.face import FaceClient
 from msrest.authentication import CognitiveServicesCredentials
@@ -13,7 +13,7 @@ from django.http import JsonResponse
 from django.conf import settings
 
 KEY = os.environ['FACE_SUBSCRIPTION_KEY']
-ENDPOINT = 'https://centralindia.api.cognitive.microsoft.com/'
+ENDPOINT = os.environ['FACE_ENDPOINT']
 face_client = FaceClient(ENDPOINT, CognitiveServicesCredentials(KEY))
 
 
@@ -57,7 +57,23 @@ def register_view(request):
                 base = settings.BASE_DIR
                 userdirc = base + "/pictures/" + uname
                 os.makedirs(userdirc)  # create a seperate directory for each user
-                           
+                os.mkdir(userdirc+"/sample")  # create a sample directory for instantiation
+
+                shutil.copy(settings.BASE_DIR + '/static/perfect-face.jpg', userdirc+"/sample")
+                sample = face_client.person_group_person.create(PERSON_GROUP_ID, "Sample")         
+                w = open(userdirc+"/sample/perfect-face.jpg")
+                face_client.person_group_person.add_face_from_stream(PERSON_GROUP_ID, sample.person_id, w)
+                face_client.person_group.train(PERSON_GROUP_ID)
+                while (True):
+                    training_status = face_client.person_group.get_training_status(PERSON_GROUP_ID)
+                    #print("Training status: {}.".format(training_status.status))
+                    if (training_status.status is TrainingStatusType.succeeded):
+                        break
+                    elif (training_status.status is TrainingStatusType.failed):
+                        sys.exit('Training the person group has failed.')
+                    time.sleep(5)
+
+                    
                 # change for album_collection 
                 return JsonResponse({"message":"success", "userid":uname})
             except:

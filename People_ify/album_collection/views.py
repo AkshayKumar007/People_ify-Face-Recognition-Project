@@ -22,3 +22,7 @@ def homepage(request, userid):
 def view_folder(request, folder_id):
     
     pass
+
+@login_required(login_url="/login")
+def upload(request):
+    pass
