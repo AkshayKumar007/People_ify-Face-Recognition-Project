@@ -11,6 +11,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.http import JsonResponse
 from django.conf import settings
+from album_collection.models import Person_Group
+
 
 KEY = os.environ['FACE_SUBSCRIPTION_KEY']
 ENDPOINT = os.environ['FACE_ENDPOINT']
@@ -58,7 +60,7 @@ def register_view(request):
                 userdirc = base + "/pictures/" + uname
                 os.makedirs(userdirc)  # create a seperate directory for each user
                 os.mkdir(userdirc+"/sample")  # create a sample directory for instantiation
-
+                
                 shutil.copy(settings.BASE_DIR + '/static/perfect-face.jpg', userdirc+"/sample")
                 sample = face_client.person_group_person.create(PERSON_GROUP_ID, "Sample")         
                 w = open(userdirc+"/sample/perfect-face.jpg")
@@ -73,7 +75,9 @@ def register_view(request):
                         sys.exit('Training the person group has failed.')
                     time.sleep(5)
 
-                    
+
+                new_user = Person_Group.objects.create()  # create an entry in table
+                new_user.save()
                 # change for album_collection 
                 return JsonResponse({"message":"success", "userid":uname})
             except:
