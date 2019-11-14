@@ -17,7 +17,7 @@ class FolderName(models.Model):
     f_id = models.AutoField(primary_key=True)
     pg_id = models.ForeignKey(Person_Group, on_delete=models.CASCADE)
     pgp_id = models.ForeignKey(Person_Group_Person, on_delete=models.CASCADE)
-    folder_name = models.CharField(max_length=128)
+    folder_name = models.CharField(max_length=128, unique=True)
     folder_path = models.TextField()
 
 class Review(models.Model):
