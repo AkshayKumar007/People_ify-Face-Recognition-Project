@@ -37,5 +37,5 @@ def upload(request):
     # to be done by Kanishk
     # 1. everytime you create a pgp in face_identify, make it's entry in FolderName and all other tables
     # 2. see media upload documentation in django before proceeding
-    # 3. call face_identify passing in PERSON_GROUP_ID = username.lower() as parameter
+    # 3. call face_identify passing in PERSON_GROUP_ID = (requset.user.username).lower() as parameter
     pass
