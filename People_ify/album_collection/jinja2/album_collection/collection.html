@@ -6,5 +6,36 @@
 {% endblock %}
 
 {% block body %}
-    <h1>Hello, World!</h1>
+    <div class="row">
+        <div class="col-md-4">
+                {{ uname }}
+        </div>
+        <div class="col-md-8"></div>
+    </div> 
+    <div class="row">
+        <div class="col-md-3"><br></div>
+        <div class="col-md-6">
+            <br>
+            <table class="table table-striped"><!--  -->
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">S.No.</th>
+                        <th scope="col">Folder Name</th>
+                     </tr>
+                </thead>
+                <tbody>                        
+                    {% for res in folder%}
+                        <tr>
+                            <th scope="row"> {{ res.title }} </th>
+                            <td> <a href="{{ url('view_folder', folder_name=res) }}">
+                                    <button type="button" class="btn btn-secondary"> Review </button>
+                                 </a>
+                            </td> 
+                        </tr>                               
+                    {% endfor %}                        
+                </tbody>
+              </table>     
+        </div>            
+        <div class="col-md-3"><br></div>       
+    </div>
 {% endblock %}

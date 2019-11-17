@@ -1,3 +1,4 @@
+import os
 from . import face_identify
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
@@ -19,11 +20,11 @@ def homepage(request, userid):
 
         BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         path = os.path.join(BASE_DIR, userid)
-        folder_list =os.listdir(path) 
+        folder_list =os.listdir(path)
+        
         context = {
             "uname": userid,
-            "folders" : folder_list
-
+            "folders" : folder_list,
         }
     return render(request, "album_collection/collection.html", context)
     
