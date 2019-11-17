@@ -27,15 +27,21 @@ def homepage(request, userid):
     return render(request, "album_collection/collection.html", context)
     
         
-# export DJANGO_SETTINGS_MODULE=People_ify.settings
 @login_required(login_url="/login")
 def view_folder(request, folder_name):
     if request.method == "GET":
         folder = FolderName.objects.filter(folder_name = folder_name)
         folder_path = folder.folder_path
-        
-        return render(request, )
-    pass
+        images = [f for f in os.listdir(folder_path) if os.path.isfile(os.path.join(folder_path, f))]
+        image_path = []
+        for i in images:
+            x = folder_path + "/" + i
+            image_path.append(x)
+        context = {
+            "images" : image_path,
+        }
+        return render(request, "folder_view.html", context)
+
 
 @login_required(login_url="/login")
 def upload(request):
