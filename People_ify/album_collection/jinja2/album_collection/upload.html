@@ -1,19 +1,19 @@
 {% extends "album_collection/layout.html" %}
 {% block title %} My Albums {% endblock %}
 {% block style %}
-    <link rel="stylesheet" href="{{ static('album_collection/upload.css') }}">
-    <script src="{{ static('album_collection/upload.js') }}"></script>
+    <link rel="stylesheet" href="{{ static('album_collection/css/upload.css') }}">
+    <script src="{{ static('album_collection/js/upload.js') }}"></script>
 {% endblock %}
 
 {% block body %}
     <div >
-        <form id="fileform" class="form-inline" enctype=multipart/form-data action="{{ url_for('upload_file') }}" method="POST"><!--  -->
+        <form id="fileform" class="form-inline" enctype="multipart/form-data" action="{{ url('upload_file') }}" method="POST"> {{ csrf_input }}
             <fieldset>
                 <h5>Select a file:</h5>
-                <input name="file" type="file">
+                <input name="myfile" type="file">
             </fieldset>
             <fieldset>
-                <input type=submit value=Upload>
+                <input class="btn btn-lg btn-dark btn-block b1" type=submit value=Upload>
             </fieldset>
         </form>
     </div>

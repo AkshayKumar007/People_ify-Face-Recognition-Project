@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 from django.core.files.storage import FileSystemStorage
 from django.conf import settings
 from album_collection.models import Person_Group, Person_Group_Person, FolderName, Review
-
+from django.conf import settings
 # Create your views here.
 
 @login_required(login_url="/login")
@@ -17,9 +17,7 @@ def homepage(request, userid):
         # 1. get a "list" of all folder_names that are there inside picture/username excluding sample(be careful with paths)
         # 2. add that list to context below so that I can render it on webpage
         folder_list=[]
-
-        BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-        path = os.path.join(BASE_DIR, userid)
+        path = settings.BASE_DIR + "/pictures/" + userid  # may need to change
         folder_list =os.listdir(path)
         
         context = {
@@ -33,7 +31,9 @@ def homepage(request, userid):
 @login_required(login_url="/login")
 def view_folder(request, folder_name):
     if request.method == "GET":
-        folder_name = FolderName.objects.filter(folder_name = folder_name)
+        folder = FolderName.objects.filter(folder_name = folder_name)
+        folder_path = folder.folder_path
+        
         return render(request, )
     pass
 
@@ -43,15 +43,18 @@ def upload(request):
     # 1. everytime you create a pgp in face_identify, make it's entry in FolderName and all other tables
     # 2. see media upload documentation in django before proceeding
     # 3. call face_identify passing in PERSON_GROUP_ID = (requset.user.username).lower() as parameter
-    face_identify((request.user.username).lower())
+    if request.method == "GET":
+        return render(request, 'core/simple_upload.html')
 
-    if request.method == 'POST' and request.FILES['myfile']:
+    elif request.method == 'POST' and request.FILES['myfile']:
         myfile = request.FILES['myfile']
-        fs=FileSystemStorage()
+        fs = FileSystemStorage()
         filename = fs.save(myfile.name, myfile)
-        uploaded_file_url = fs.url(filename)
-        return render(request, 'core/simple_upload.html', {
-            'uploaded_file_url': uploaded_file_url
-        })
-    return render(request, 'core/simple_upload.html')
-    pass
+        # uploaded_file_url = fs.url(filename)
+        face_identify((request.user.username).lower())  # run function after image is uploaded
+        return redirect("homepage", permanent=True)
+        
+        # return render(request, 'core/simple_upload.html', {
+        #     'uploaded_file_url': uploaded_file_url
+        # })
+    

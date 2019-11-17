@@ -60,7 +60,10 @@ TEMPLATES = [
         'DIRS': [],  # os.path.join(BASE_DIR, 'templates/jinja2'), ],
         'APP_DIRS': True,
         'OPTIONS': {
-        'environment': 'People_ify.jinja2.environment'
+        'environment': 'People_ify.jinja2.environment',
+        'context_processors': [
+            
+        ],
         },
     },
     {
