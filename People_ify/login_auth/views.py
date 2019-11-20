@@ -70,6 +70,7 @@ def register_view(request):
                 training_status = face_client.person_group.get_training_status(PERSON_GROUP_ID)
                 #print("Training status: {}.".format(training_status.status))
                 if (training_status.status is TrainingStatusType.succeeded):
+                    print((request.user.username).lower())  # error checking 
                     break
                 elif (training_status.status is TrainingStatusType.failed):
                     sys.exit('Training the person group has failed.')

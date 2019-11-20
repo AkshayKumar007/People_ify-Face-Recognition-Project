@@ -58,13 +58,18 @@ def main(PERSON_GROUP_ID):
 	# base = settings.BASE_DIR
 	test_folder = settings.BASE_DIR + "/media/"
 	sample_images = [f for f in os.listdir(test_folder) if os.path.isfile(os.path.join(test_folder, f))]
-	for group_photo in sample_images:
+	image_paths = []
+	for j in sample_images:
+		x = test_folder + "/" + j
+		image_paths.append(x)
+
+	for group_photo in image_paths:
 		image = open(group_photo, 'r+b')
 
 		# Detect faces
 		face_ids = []
 		faces = face_client.face.detect_with_stream(image)
-		time.sleep(60)
+		# time.sleep(60)
 		for face in faces:
 		    face_ids.append(face.face_id)
 		# </snippet_identify_testimage>
