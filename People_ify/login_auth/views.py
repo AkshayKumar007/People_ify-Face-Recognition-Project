@@ -63,7 +63,7 @@ def register_view(request):
             
             shutil.copy(settings.BASE_DIR + '/static/perfect-face.jpg', userdirc+"/sample")
             sample = face_client.person_group_person.create(PERSON_GROUP_ID, "Sample")         
-            w = open(userdirc+"/sample/perfect-face.jpg")
+            w = open(userdirc+"/sample/perfect-face.jpg", 'r+b')
             face_client.person_group_person.add_face_from_stream(PERSON_GROUP_ID, sample.person_id, w)
             face_client.person_group.train(PERSON_GROUP_ID)
             while (True):
