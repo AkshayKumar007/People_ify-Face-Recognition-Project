@@ -24,10 +24,10 @@
                      </tr>
                 </thead>
                 <tbody>                        
-                    {% for res in folder%}
+                    {% for res in folders %}
                         <tr>
-                            <th scope="row"> {{ res.title }} </th>
-                            <td> <a href="{{ url('view_folder', folder_name=res) }}">
+                            <th scope="row"> {{ res }} </th>
+                            <td> <a href="{{ url('view_folder', args=[res]) }}"> <!--, folder_name=res-->
                                     <button type="button" class="btn btn-secondary"> Review </button>
                                  </a>
                             </td> 

@@ -3,10 +3,12 @@ from django.conf import settings
 from django.conf.urls.static import static
 from . import views
 
+# app_name='album_collection'
+
 urlpatterns = [
     path("<str:userid>", views.homepage, name="homepage"),
     path("view_folder/<str:folder_name>", views.view_folder, name="view_folder"),
-    path("upload",views.upload,name="upload"),
+    path("upload", views.upload ,name="upload"),
 ]
 
 if settings.DEBUG:

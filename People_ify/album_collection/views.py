@@ -18,11 +18,11 @@ def homepage(request, userid):
         # 2. add that list to context below so that I can render it on webpage
         folder_list=[]
         path = settings.BASE_DIR + "/pictures/" + userid  # may need to change
-        folder_list =os.listdir(path)
+        folder_list = os.listdir(path)
         
         context = {
             "uname": userid,
-            "folders" : folder_list,
+            "folders" : folder_list
         }
     return render(request, "album_collection/collection.html", context)
     
@@ -64,3 +64,5 @@ def upload(request):
         #     'uploaded_file_url': uploaded_file_url
         # })
     
+# c5229c3363cb4d659aea93939677eaa1
+# https://centralindia.api.cognitive.microsoft.com/
