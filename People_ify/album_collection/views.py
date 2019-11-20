@@ -58,7 +58,7 @@ def upload(request, userid):
         fs = FileSystemStorage()
         filename = fs.save(myfile.name, myfile)
         # uploaded_file_url = fs.url(filename)
-        face_identify((request.user.username).lower())  # run function after image is uploaded
+        face_identify.main((request.user.username).lower())  # run function after image is uploaded
         return redirect("homepage", permanent=True)
         
         # return render(request, 'core/simple_upload.html', {

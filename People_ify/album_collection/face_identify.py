@@ -6,6 +6,7 @@ from PIL import Image, ImageDraw
 from azure.cognitiveservices.vision.face import FaceClient
 from msrest.authentication import CognitiveServicesCredentials
 from azure.cognitiveservices.vision.face.models import TrainingStatusType, Person, SnapshotObjectType, OperationStatusType
+from django.conf import settings
 
 KEY = os.environ['FACE_SUBSCRIPTION_KEY']
 
@@ -24,38 +25,41 @@ face_client = FaceClient(ENDPOINT, CognitiveServicesCredentials(KEY))
 # face_client.person_group.create(person_group_id=PERSON_GROUP_ID, name=PERSON_GROUP_ID)
 
 def main(PERSON_GROUP_ID):
-	sample_images = [file for file in glob.glob('*.jpg') if file.startswith("sample_image")]
+	# sample_images = [file for file in glob.glob('*.jpg') if file.startswith("sample_image")]
+	# media = os.path.join(os.path.dirname(os.path.realpath(__file__))) + "/uploads"
+	# sample_images = [f for f in os.listdir(media) if os.path.isfile(os.path.join(media, f))]
+	# sample = face_client.person_group_person.create(PERSON_GROUP_ID, "Sample")
+	# for img in sample_images:
+	# 	w = open(img, 'r+b')
+	# 	face_client.person_group_person.add_face_from_stream(PERSON_GROUP_ID, sample.person_id, w)
 
-	sample = face_client.person_group_person.create(PERSON_GROUP_ID, "Sample")
-	for img in sample_images:
-		w = open(img, 'r+b')
-		face_client.person_group_person.add_face_from_stream(PERSON_GROUP_ID, sample.person_id, w)
 
+	# #print('Training the person group...')
+	# # Train the person group
+	# face_client.person_group.train(PERSON_GROUP_ID)
 
-	#print('Training the person group...')
-	# Train the person group
-	face_client.person_group.train(PERSON_GROUP_ID)
+	# while (True):
+	#     training_status = face_client.person_group.get_training_status(PERSON_GROUP_ID)
+	#     #print("Training status: {}.".format(training_status.status))
+	#     if (training_status.status is TrainingStatusType.succeeded):
+	#         break
+	#     elif (training_status.status is TrainingStatusType.failed):
+	#         sys.exit('Training the person group has failed.')
+	#     time.sleep(5)
+	# # </snippet_persongroup_train>
 
-	while (True):
-	    training_status = face_client.person_group.get_training_status(PERSON_GROUP_ID)
-	    #print("Training status: {}.".format(training_status.status))
-	    if (training_status.status is TrainingStatusType.succeeded):
-	        break
-	    elif (training_status.status is TrainingStatusType.failed):
-	        sys.exit('Training the person group has failed.')
-	    time.sleep(5)
-	# </snippet_persongroup_train>
+	# # <snippet_identify_testimage>
 
-	# <snippet_identify_testimage>
-
-	# Reference image for testing against
+	# # Reference image for testing against
 	i=0
 	d={}
 
-	test_folder=os.listdir(os.path.join(os.getcwd(),'testfolder'))
-
-	for group_photo in test_folder:
-		image = open(os.path.join(os.getcwd(),'testfolder',group_photo), 'r+b')
+	# test_folder=os.listdir(os.path.join(os.getcwd(),'testfolder'))
+	# base = settings.BASE_DIR
+	test_folder = settings.BASE_DIR + "/media/"
+	sample_images = [f for f in os.listdir(test_folder) if os.path.isfile(os.path.join(test_folder, f))]
+	for group_photo in sample_images:
+		image = open(group_photo, 'r+b')
 
 		# Detect faces
 		face_ids = []
