@@ -51,7 +51,7 @@ def upload(request, userid):
     # 2. see media upload documentation in django before proceeding
     # 3. call face_identify passing in PERSON_GROUP_ID = (requset.user.username).lower() as parameter
     if request.method == "GET":
-        return render(request, 'album_collection/upload.html')
+        return render(request, 'album_collection/upload.html', {"uname": request.user.username })
 
     elif request.method == 'POST' and request.FILES['myfile']:
         myfile = request.FILES['myfile']

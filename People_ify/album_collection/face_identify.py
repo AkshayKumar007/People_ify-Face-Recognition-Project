@@ -51,6 +51,8 @@ def main(PERSON_GROUP_ID):
 	# # <snippet_identify_testimage>
 
 	# # Reference image for testing against
+	PERSON_GROUP_ID = PERSON_GROUP_ID.lower()
+	print(PERSON_GROUP_ID)
 	i=0
 	d={}
 
