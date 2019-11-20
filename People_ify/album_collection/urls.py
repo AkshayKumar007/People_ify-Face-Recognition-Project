@@ -8,7 +8,7 @@ from . import views
 urlpatterns = [
     path("<str:userid>", views.homepage, name="homepage"),
     path("view_folder/<str:folder_name>", views.view_folder, name="view_folder"),
-    path("upload", views.upload ,name="upload"),
+    path("<str:userid>/upload", views.upload ,name="upload"),
 ]
 
 if settings.DEBUG:

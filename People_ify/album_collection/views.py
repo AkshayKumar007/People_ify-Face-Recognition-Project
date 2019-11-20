@@ -45,13 +45,13 @@ def view_folder(request, folder_name):
 
 
 @login_required(login_url="/login")
-def upload(request):
+def upload(request, userid):
     # to be done by Kanishk
     # 1. everytime you create a pgp in face_identify, make it's entry in FolderName and all other tables
     # 2. see media upload documentation in django before proceeding
     # 3. call face_identify passing in PERSON_GROUP_ID = (requset.user.username).lower() as parameter
     if request.method == "GET":
-        return render(request, 'core/simple_upload.html')
+        return render(request, 'album_collection/upload.html')
 
     elif request.method == 'POST' and request.FILES['myfile']:
         myfile = request.FILES['myfile']

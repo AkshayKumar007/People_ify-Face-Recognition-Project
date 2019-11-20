@@ -7,7 +7,7 @@
 
 {% block body %}
     <div >
-        <form id="fileform" class="form-inline" enctype="multipart/form-data" action="{{ url('upload_file') }}" method="POST"> {{ csrf_input }}
+        <form id="fileform" class="form-inline" enctype="multipart/form-data" action="{{ url('upload', args=[uname]) }}" method="POST"> {{ csrf_input }}
             <fieldset>
                 <h5>Select a file:</h5>
                 <input name="myfile" type="file">
