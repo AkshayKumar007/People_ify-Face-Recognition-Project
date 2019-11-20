@@ -48,40 +48,38 @@ def register_view(request):
         elif res2 is not None:
             return JsonResponse({"message": "no_uname"})
         else:
-            try:
-                u = User.objects.create_user(username=uname,first_name=fname, last_name=lname, email=email, password=passwd)
-                u.save()
-                login(request, u)
-                # create PersonGroup
-                PERSON_GROUP_ID = uname.lower()
-                face_client.person_group.create(person_group_id=PERSON_GROUP_ID, name=PERSON_GROUP_ID)
-                # base = os.path.abspath(os.path.dirname(__name__))  # point to Project Directory People_ify
-                base = settings.BASE_DIR
-                userdirc = base + "/pictures/" + uname
-                os.makedirs(userdirc)  # create a seperate directory for each user
-                os.mkdir(userdirc+"/sample")  # create a sample directory for instantiation
-                
-                shutil.copy(settings.BASE_DIR + '/static/perfect-face.jpg', userdirc+"/sample")
-                sample = face_client.person_group_person.create(PERSON_GROUP_ID, "Sample")         
-                w = open(userdirc+"/sample/perfect-face.jpg")
-                face_client.person_group_person.add_face_from_stream(PERSON_GROUP_ID, sample.person_id, w)
-                face_client.person_group.train(PERSON_GROUP_ID)
-                while (True):
-                    training_status = face_client.person_group.get_training_status(PERSON_GROUP_ID)
-                    #print("Training status: {}.".format(training_status.status))
-                    if (training_status.status is TrainingStatusType.succeeded):
-                        break
-                    elif (training_status.status is TrainingStatusType.failed):
-                        sys.exit('Training the person group has failed.')
-                    time.sleep(5)
-
-
-                new_user = Person_Group.objects.create()  # create an entry in table
-                new_user.save()
-                # change for album_collection 
-                return JsonResponse({"message":"success", "userid":uname})
-            except:
-                return JsonResponse({"message": "wrong"})
+            # try:
+            u = User.objects.create_user(username=uname,first_name=fname, last_name=lname, email=email, password=passwd)
+            u.save()
+            login(request, u)
+            # create PersonGroup
+            PERSON_GROUP_ID = uname.lower()
+            face_client.person_group.create(person_group_id=PERSON_GROUP_ID, name=PERSON_GROUP_ID)
+            # base = os.path.abspath(os.path.dirname(__name__))  # point to Project Directory People_ify
+            base = settings.BASE_DIR
+            userdirc = base + "/pictures/" + uname
+            os.makedirs(userdirc)  # create a seperate directory for each user
+            os.mkdir(userdirc+"/sample")  # create a sample directory for instantiation
+            
+            shutil.copy(settings.BASE_DIR + '/static/perfect-face.jpg', userdirc+"/sample")
+            sample = face_client.person_group_person.create(PERSON_GROUP_ID, "Sample")         
+            w = open(userdirc+"/sample/perfect-face.jpg")
+            face_client.person_group_person.add_face_from_stream(PERSON_GROUP_ID, sample.person_id, w)
+            face_client.person_group.train(PERSON_GROUP_ID)
+            while (True):
+                training_status = face_client.person_group.get_training_status(PERSON_GROUP_ID)
+                #print("Training status: {}.".format(training_status.status))
+                if (training_status.status is TrainingStatusType.succeeded):
+                    break
+                elif (training_status.status is TrainingStatusType.failed):
+                    sys.exit('Training the person group has failed.')
+                time.sleep(5)
+            new_user = Person_Group.objects.create()  # create an entry in table
+            new_user.save()
+            # change for album_collection 
+            return JsonResponse({"message":"success", "userid":uname})
+            # except:
+            #     return JsonResponse({"message": "wrong"})
 
 
 def login_view(request):

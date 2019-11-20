@@ -30,7 +30,8 @@ def homepage(request, userid):
 @login_required(login_url="/login")
 def view_folder(request, folder_name):
     if request.method == "GET":
-        folder = FolderName.objects.filter(folder_name = folder_name)
+        folder = FolderName.objects.get(folder_name = folder_name)
+        print(type(folder))
         folder_path = folder.folder_path
         images = [f for f in os.listdir(folder_path) if os.path.isfile(os.path.join(folder_path, f))]
         image_path = []
