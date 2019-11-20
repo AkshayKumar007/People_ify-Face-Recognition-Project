@@ -80,6 +80,9 @@ def main(PERSON_GROUP_ID):
 		#print('Identifying faces::')
 		if not results:
 		    #print('No person identified in the person group for faces from the {}.'.format(os.path.basename(image.name)))
+			miscdirc = settings.BASE_DIR + "/pictures/" + PERSON_GROUP_ID + "/" + "Miscellaneous"
+			os.makedirs(miscdirc)
+			shutil.move(group_photo, miscdirc)
 		    continue
 
 		for person in results:
