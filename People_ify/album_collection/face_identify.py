@@ -86,24 +86,26 @@ def main(PERSON_GROUP_ID):
 			if len(person.candidates)>0: #Face has been matched
 				#print('Person for face ID {} is identified in {} with a confidence of {}.'.format(person.face_id, os.path.basename(image.name), person.candidates[0].confidence))
 
-				my_image = open(os.path.join(os.getcwd(),'testfolder',group_photo), 'r+b')
+				my_image = open(group_photo, 'r+b')
 				face_client.person_group_person.add_face_from_stream(PERSON_GROUP_ID, person.candidates[0].person_id, my_image)
 
 				#print('The person belongs to {}'.format(d[person.candidates[0].person_id]))
-				shutil.copy(os.path.join(os.getcwd(),'testfolder',group_photo) , os.path.join(os.getcwd(),d[person.candidates[0].person_id],group_photo))
+				userdirc = settings.BASE_DIR + "/pictures/" + PERSON_GROUP_ID + "/" + d[person.candidates[0].person_id]
+				shutil.move(group_photo, userdirc)
 			else: #Face not matched so create a new person group person
 				#print("Face cannot be matched so I am creating a new person group person")
 				i+=1
-
 				#creating a new person group person
-				my_image_2 = open(os.path.join(os.getcwd(),'testfolder',group_photo), 'r+b')
+				my_image_2 = open(group_photo, 'r+b')
 				new_face = face_client.person_group_person.create(PERSON_GROUP_ID, "New_FACE"+str(i))
 				face_client.person_group_person.add_face_from_stream(PERSON_GROUP_ID, new_face.person_id, my_image_2)
 				d[new_face.person_id]='New_FACE'+str(i)
 
-				if not os.path.exists('New_FACE'+str(i)):
-					os.mkdir('New_FACE'+str(i))
-				shutil.copy(os.path.join(os.getcwd(),'testfolder',group_photo) , os.path.join(os.getcwd(),'New_FACE'+str(i),group_photo))
+				# if not os.path.exists('New_FACE'+str(i)):
+				userdirc = settings.BASE_DIR + "/pictures/" + PERSON_GROUP_ID + "/" + d[new_face.person_id]
+				os.makedirs(userdirc)
+				# os.mkdir(userdirc)
+				shutil.move(group_photo, userdirc)
 
 
 
