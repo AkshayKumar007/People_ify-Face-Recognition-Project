@@ -64,8 +64,8 @@ def main(PERSON_GROUP_ID):
 				my_image = open(group_photo, 'r+b')
 				face_client.person_group_person.add_face_from_stream(PERSON_GROUP_ID, person.candidates[0].person_id, my_image)
 
-				f_name = Person_Group_Person.objects.get(person_id=person.candidates[0].person_id)  # change
-
+				p_name = Person_Group_Person.objects.get(person_id=person.candidates[0].person_id)  # change
+				f_name = FolderName.objects.get(pgp_id=p_name)
 				# per = Person_Group_Person(pg_id=PERSON_GROUP_ID, pgp_name="", person_id=person.candidates[0].person_id)  
 
 				#print('The person belongs to {}'.format(d[person.candidates[0].person_id]))

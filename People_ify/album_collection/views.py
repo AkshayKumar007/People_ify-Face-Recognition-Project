@@ -17,14 +17,14 @@ def homepage(request, userid):
         # 1. get a "list" of all folder_names that are there inside picture/username excluding sample(be careful with paths)
         # 2. add that list to context below so that I can render it on webpage
         folder_list=[]
-        path = settings.BASE_DIR + "/pictures/" + userid  # may need to change
+        path = settings.BASE_DIR + "/pictures/" + userid.lower()  # may need to change
         folder_list = os.listdir(path)
         
         context = {
             "uname": userid,
             "folders" : folder_list
         }
-    return render(request, "album_collection/collection.html", context)
+        return render(request, "album_collection/collection.html", context)
     
         
 @login_required(login_url="/login")
@@ -51,7 +51,7 @@ def upload(request, userid):
     # 2. see media upload documentation in django before proceeding
     # 3. call face_identify passing in PERSON_GROUP_ID = (requset.user.username).lower() as parameter
     if request.method == "GET":
-        return render(request, 'album_collection/upload.html', {"uname": request.user.username })
+        return render(request, 'album_collection/upload.html', {"uname": (request.user.username).lower() })
 
     elif request.method == 'POST' and request.FILES['myfile']:
         myfile = request.FILES['myfile']
