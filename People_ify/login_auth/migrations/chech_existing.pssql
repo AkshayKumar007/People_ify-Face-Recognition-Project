@@ -1,0 +1,15 @@
+DELIMITER $$
+DROP FUNCTION IF EXISTS `USER_EXISTS` $$
+CREATE DEFINER=`root`@`localhost` FUNCTION `USER_EXISTS`
+(`GIVEN_USERNAME` VARCHAR(64) CHARSET utf8mb4) RETURNS INT
+BEGIN
+    SET @User_exists = 0;
+    SELECT COUNT(1) INTO @found
+    FROM `dbname`.`tablename`
+    WHERE `username` = GIVEN_USERNAME;
+    IF @found > 0 THEN
+        SET @User_exists = 1;
+    END IF;
+    RETURN @User_exists;
+END $$
+DELIMITER ;

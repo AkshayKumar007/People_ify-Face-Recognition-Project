@@ -74,6 +74,7 @@ def review_view(request,userid):
         new_rev = Review.objects.create(pg_id=usr, review=revw, rev_star=star)
         rev_list = Review.objects.all()
         context = {
+            "stars" : [1,2,3,4,5],
             "uname": request.user.username,
             "result" : rev_list,
         }
@@ -82,6 +83,7 @@ def review_view(request,userid):
     elif request.method == "GET":
         rev_list = Review.objects.all()
         context = {
+            "stars" : [1,2,3,4,5],
             "uname": request.user.username,
             "result" : rev_list,
         }

@@ -11,7 +11,7 @@
         <div class="col-md-3"><br></div>
         <div class="col-md-6">
             <div class="col-md-6" id="bocx">
-                <form action="{{ url('review', book_id=id) }}" method="POST">
+                <form action="{{ url('review_view', args=[uname]) }}" method="POST"> {{ csrf_input }}
                     <div class="form-group">
                         <label for="rate">Rating out of 5:</label>
                         <select class="form-control" name="rate">
