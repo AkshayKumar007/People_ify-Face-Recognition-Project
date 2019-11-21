@@ -28,6 +28,8 @@ class Review(models.Model):
     pg_id = models.ForeignKey(Person_Group, on_delete=models.CASCADE)
     review = models.TextField()
     rev_star = models.IntegerField()
+    # def __str__(self):
+    #     return "{0}\t{1}\n{2}\n{3}".format(self.rev_id, self.pg_id, self.rev_star, self.review)
 
 # class sharedFolder(models.Model):
 #     pg_id1 = models.ForeignKey(FolderName, on_delete=models.CASCADE, related_name="from")

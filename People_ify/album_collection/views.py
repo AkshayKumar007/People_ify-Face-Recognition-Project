@@ -8,6 +8,7 @@ from django.core.files.storage import FileSystemStorage
 from django.conf import settings
 from album_collection.models import Person_Group, Person_Group_Person, FolderName, Review
 from django.conf import settings
+
 # Create your views here.
 
 @login_required(login_url="/login")
@@ -65,6 +66,31 @@ def upload(request, userid):
         }
         return render(request, "album_collection/collection.html", context)
 
+def review_view(request,userid):
+    if request.method == "POST":
+        star = request.POST["rate"]
+        revw = request.POST["revw"]
+        usr = Person_Group.objects.get(pg_name=(request.user.username).lower())
+        new_rev = Review.objects.create(pg_id=usr, review=revw, rev_star=star)
+        rev_list = Review.objects.all()
+        context = {
+            "uname": request.user.username,
+            "result" : rev_list,
+        }
+        return render(request, "album_collection/review.html", context)
+
+    elif request.method == "GET":
+        rev_list = Review.objects.all()
+        context = {
+            "uname": request.user.username,
+            "result" : rev_list,
+        }
+        return render(request, "album_collection/review.html", context)
     
+
+
+
+
+
 # c5229c3363cb4d659aea93939677eaa1
 # https://centralindia.api.cognitive.microsoft.com/

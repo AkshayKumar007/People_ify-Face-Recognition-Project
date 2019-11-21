@@ -9,6 +9,7 @@ urlpatterns = [
     path("<str:userid>", views.homepage, name="homepage"),
     path("view_folder/<str:folder_name>", views.view_folder, name="view_folder"),
     path("<str:userid>/upload", views.upload ,name="upload"),
+    path("review/<str:userid>", views.review_view, name="review_view"),
 ]
 
 if settings.DEBUG:

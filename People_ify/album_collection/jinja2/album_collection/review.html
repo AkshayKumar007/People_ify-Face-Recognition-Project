@@ -1,0 +1,67 @@
+{% extends "album_collection/layout.html" %}
+{% block title %} My Albums {% endblock %}
+{% block style %}
+    <link rel="stylesheet" href="{{ static('album_collection/css/folder_view.css') }}">
+    <script src="{{ static('album_collection/js/folder_view.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+    
+    <div class="row" id="review">
+        <div class="col-md-3"><br></div>
+        <div class="col-md-6">
+            <div class="col-md-6" id="bocx">
+                <form action="{{ url('review', book_id=id) }}" method="POST">
+                    <div class="form-group">
+                        <label for="rate">Rating out of 5:</label>
+                        <select class="form-control" name="rate">
+                            {% for star in stars %}
+                                <option value="{{ star }}">{{ star }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="revw">Your Review</label>
+                        <input type="text" name="revw" placeholder="Type your review">
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-primary">Submit Review</button>
+                    </div>                    
+                </form>
+            </div>
+        </div>
+        <div class="col-md-3"><br></div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-3"><br></div>
+        <table class="table table-striped">
+            <thead class="thead-dark">
+                <tr>       
+                    <th scope="col">Review No.:</th>                     
+                    <th scope="col">User:</th>
+                    <th scope="col">Rating:</th>
+                    <th scope="col">Review:</th>
+                </tr>
+            </thead>  
+            <tbody>                           
+                    {% for r in result %}
+                    <tr>
+                        <td> {{ r.rev_id }} </td>
+                        <td> {{ r.pg_id }} </td>
+                        <td> {{ r.rev_star }} </td>
+                        <td> {{ r.review }} </td>
+                    </tr>
+                    {% else %}   
+                    <tr>
+                        <td></td>
+                        <td> <p>No Reviews</p> </td> 
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    {% endfor %}                 
+            </tbody>          
+        </table>
+    </div>
+
+{% endblock %}
