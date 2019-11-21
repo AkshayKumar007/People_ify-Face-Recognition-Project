@@ -41,7 +41,7 @@ def view_folder(request, folder_name):
         context = {
             "images" : image_path,
         }
-        return render(request, "folder_view.html", context)
+        return render(request, "album_collection/folder_view.html", context)
 
 
 @login_required(login_url="/login")
@@ -60,7 +60,7 @@ def upload(request, userid):
         # uploaded_file_url = fs.url(filename)
         print((request.user.username).lower())
         face_identify.main((request.user.username).lower())  # run function after image is uploaded
-        return redirect("homepage", permanent=True)
+        return render(request, "album_collection/collection.html", {"userid": request.user.username })
         
         # return render(request, 'core/simple_upload.html', {
         #     'uploaded_file_url': uploaded_file_url

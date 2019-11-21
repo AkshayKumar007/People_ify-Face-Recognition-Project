@@ -12,6 +12,7 @@ class Person_Group_Person(models.Model):
     pgp_id = models.AutoField(primary_key=True)
     pg_id = models.ForeignKey(Person_Group, on_delete=models.CASCADE)
     pgp_name = models.CharField(max_length=128)
+    person_id = models.CharField(max_length=128)
 
 class FolderName(models.Model):
     f_id = models.AutoField(primary_key=True)

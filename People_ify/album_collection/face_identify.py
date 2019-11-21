@@ -1,5 +1,5 @@
 # <snippet_imports>
-import asyncio, io, glob, os, sys, time, uuid, requests, shutil
+import asyncio, io, glob, os, sys, time, uuid, requests, shutil, random
 from urllib.parse import urlparse
 from io import BytesIO
 from PIL import Image, ImageDraw
@@ -7,6 +7,7 @@ from azure.cognitiveservices.vision.face import FaceClient
 from msrest.authentication import CognitiveServicesCredentials
 from azure.cognitiveservices.vision.face.models import TrainingStatusType, Person, SnapshotObjectType, OperationStatusType
 from django.conf import settings
+from .models import FolderName, Person_Group, Person_Group_Person
 
 KEY = os.environ['FACE_SUBSCRIPTION_KEY']
 
@@ -25,39 +26,11 @@ face_client = FaceClient(ENDPOINT, CognitiveServicesCredentials(KEY))
 # face_client.person_group.create(person_group_id=PERSON_GROUP_ID, name=PERSON_GROUP_ID)
 
 def main(PERSON_GROUP_ID):
-	# sample_images = [file for file in glob.glob('*.jpg') if file.startswith("sample_image")]
-	# media = os.path.join(os.path.dirname(os.path.realpath(__file__))) + "/uploads"
-	# sample_images = [f for f in os.listdir(media) if os.path.isfile(os.path.join(media, f))]
-	# sample = face_client.person_group_person.create(PERSON_GROUP_ID, "Sample")
-	# for img in sample_images:
-	# 	w = open(img, 'r+b')
-	# 	face_client.person_group_person.add_face_from_stream(PERSON_GROUP_ID, sample.person_id, w)
-
-
-	# #print('Training the person group...')
-	# # Train the person group
-	# face_client.person_group.train(PERSON_GROUP_ID)
-
-	# while (True):
-	#     training_status = face_client.person_group.get_training_status(PERSON_GROUP_ID)
-	#     #print("Training status: {}.".format(training_status.status))
-	#     if (training_status.status is TrainingStatusType.succeeded):
-	#         break
-	#     elif (training_status.status is TrainingStatusType.failed):
-	#         sys.exit('Training the person group has failed.')
-	#     time.sleep(5)
-	# # </snippet_persongroup_train>
-
-	# # <snippet_identify_testimage>
-
-	# # Reference image for testing against
-	PERSON_GROUP_ID = PERSON_GROUP_ID.lower()
+	# PERSON_GROUP_ID = PERSON_GROUP_ID.lower()
 	print(PERSON_GROUP_ID)
-	i=0
+	# i=0
 	d={}
 
-	# test_folder=os.listdir(os.path.join(os.getcwd(),'testfolder'))
-	# base = settings.BASE_DIR
 	test_folder = settings.BASE_DIR + "/media/"
 	sample_images = [f for f in os.listdir(test_folder) if os.path.isfile(os.path.join(test_folder, f))]
 	image_paths = []
@@ -74,42 +47,54 @@ def main(PERSON_GROUP_ID):
 		# time.sleep(60)
 		for face in faces:
 		    face_ids.append(face.face_id)
-		# </snippet_identify_testimage>
-
-		# <snippet_identify>
-		# Identify faces
+	
 		results = face_client.face.identify(face_ids, PERSON_GROUP_ID)
-		#print('Identifying faces::')
+		
 		if not results:
-		    #print('No person identified in the person group for faces from the {}.'.format(os.path.basename(image.name)))
 			miscdirc = settings.BASE_DIR + "/pictures/" + PERSON_GROUP_ID + "/" + "Miscellaneous"
 			os.makedirs(miscdirc)
 			shutil.move(group_photo, miscdirc)
-		    continue
+			# continue
+			mis = Person_Group_Person(pg_id=PERSON_GROUP_ID, pgp_name="miscellaneous", person_id="0000000")  # change
+			mis.save()
 
 		for person in results:
 			if len(person.candidates)>0: #Face has been matched
-				#print('Person for face ID {} is identified in {} with a confidence of {}.'.format(person.face_id, os.path.basename(image.name), person.candidates[0].confidence))
 
 				my_image = open(group_photo, 'r+b')
 				face_client.person_group_person.add_face_from_stream(PERSON_GROUP_ID, person.candidates[0].person_id, my_image)
 
+				f_name = Person_Group_Person.objects.get(person_id=person.candidates[0].person_id)  # change
+
+				# per = Person_Group_Person(pg_id=PERSON_GROUP_ID, pgp_name="", person_id=person.candidates[0].person_id)  
+
 				#print('The person belongs to {}'.format(d[person.candidates[0].person_id]))
-				userdirc = settings.BASE_DIR + "/pictures/" + PERSON_GROUP_ID + "/" + d[person.candidates[0].person_id]
+				userdirc = settings.BASE_DIR + "/pictures/" + PERSON_GROUP_ID + "/" + f_name.folder_name
 				shutil.move(group_photo, userdirc)
 			else: #Face not matched so create a new person group person
-				#print("Face cannot be matched so I am creating a new person group person")
-				i+=1
+				i = int()
+				while True:
+					try:
+						i = random.randint(0, 1000)
+						x = FolderName.objects.get(folder_name="New_FACE"+str(i))
+					except:
+						break
 				#creating a new person group person
 				my_image_2 = open(group_photo, 'r+b')
 				new_face = face_client.person_group_person.create(PERSON_GROUP_ID, "New_FACE"+str(i))
-				face_client.person_group_person.add_face_from_stream(PERSON_GROUP_ID, new_face.person_id, my_image_2)
-				d[new_face.person_id]='New_FACE'+str(i)
 
-				# if not os.path.exists('New_FACE'+str(i)):
-				userdirc = settings.BASE_DIR + "/pictures/" + PERSON_GROUP_ID + "/" + d[new_face.person_id]
+				p = Person_Group.objects.get(pg_name=PERSON_GROUP_ID)
+				per = Person_Group_Person(pg_id=p, pgp_name="New_FACE"+str(i), person_id=new_face.person_id)  # change
+				per.save()
+				
+				face_client.person_group_person.add_face_from_stream(PERSON_GROUP_ID, new_face.person_id, my_image_2)
+
+				userdirc = settings.BASE_DIR + "/pictures/" + PERSON_GROUP_ID + "/" + "New_FACE"+str(i)
 				os.makedirs(userdirc)
-				# os.mkdir(userdirc)
+
+				fname = FolderName(pg_id=per.pg_id, pgp_id=per, folder_name="New_FACE"+str(i), folder_path=userdirc)  # change
+				fname.save()
+
 				shutil.move(group_photo, userdirc)
 
 
@@ -133,14 +118,8 @@ def main(PERSON_GROUP_ID):
 		#os.remove(group_photo)
 
 	# </snippet_identify>
+	# sudo -u postgres psql postgres
 
-
-	# <snippet_deletegroup>
-	# Delete the main person group.
-	face_client.person_group.delete(person_group_id=PERSON_GROUP_ID)
-	#print("Deleted the person group {} from the source location.".format(PERSON_GROUP_ID))
-	# </snippet_deletegroup>
-
-	#print("completed")
+	
 if __name__ == "__main__":
 	main()

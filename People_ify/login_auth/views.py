@@ -75,7 +75,7 @@ def register_view(request):
                 elif (training_status.status is TrainingStatusType.failed):
                     sys.exit('Training the person group has failed.')
                 time.sleep(5)
-            new_user = Person_Group.objects.create()  # create an entry in table
+            new_user = Person_Group.objects.create(pg_name=uname.lower())  # create an entry in table
             new_user.save()
             # change for album_collection 
             return JsonResponse({"message":"success", "userid":uname})
