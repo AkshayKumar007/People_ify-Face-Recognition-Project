@@ -6,6 +6,18 @@
 {% endblock %}
 
 {% block body %}
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Review Worm</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+            <a class="nav-item nav-link active" href="{{ url('logout_view') }}" method="POST"> Logout <span class="sr-only">(current)</span></a>
+          </div>
+        </div>
+    </nav>
     
     <div class="row" id="review">
         <div class="col-md-3"><br></div>
@@ -48,7 +60,7 @@
                     {% for r in result %}
                     <tr>
                         <td> {{ r.rev_id }} </td>
-                        <td> {{ r.pg_id }} </td>
+                        <td> {{ r.pg_id.pg_id}} </td>
                         <td> {{ r.rev_star }} </td>
                         <td> {{ r.review }} </td>
                     </tr>
