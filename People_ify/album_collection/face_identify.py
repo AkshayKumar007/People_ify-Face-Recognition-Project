@@ -35,7 +35,7 @@ def main(PERSON_GROUP_ID):
 	sample_images = [f for f in os.listdir(test_folder) if os.path.isfile(os.path.join(test_folder, f))]
 	image_paths = []
 	for j in sample_images:
-		x = test_folder + "/" + j
+		x = test_folder + j
 		image_paths.append(x)
 
 	for group_photo in image_paths:
@@ -51,7 +51,7 @@ def main(PERSON_GROUP_ID):
 		results = face_client.face.identify(face_ids, PERSON_GROUP_ID)
 		
 		if not results:
-			miscdirc = settings.BASE_DIR + "/pictures/" + PERSON_GROUP_ID + "/" + "Miscellaneous"
+			miscdirc = settings.BASE_DIR + "/static/" + PERSON_GROUP_ID + "/" + "Miscellaneous"
 			os.makedirs(miscdirc)
 			shutil.move(group_photo, miscdirc)
 			# continue
@@ -69,7 +69,7 @@ def main(PERSON_GROUP_ID):
 				# per = Person_Group_Person(pg_id=PERSON_GROUP_ID, pgp_name="", person_id=person.candidates[0].person_id)  
 
 				#print('The person belongs to {}'.format(d[person.candidates[0].person_id]))
-				userdirc = settings.BASE_DIR + "/pictures/" + PERSON_GROUP_ID + "/" + f_name.folder_name
+				userdirc = settings.BASE_DIR + "/static/" + PERSON_GROUP_ID + "/" + f_name.folder_name
 				shutil.move(group_photo, userdirc)
 			else: #Face not matched so create a new person group person
 				i = int()
@@ -86,10 +86,11 @@ def main(PERSON_GROUP_ID):
 				p = Person_Group.objects.get(pg_name=PERSON_GROUP_ID)
 				per = Person_Group_Person(pg_id=p, pgp_name="New_FACE"+str(i), person_id=new_face.person_id)  # change
 				per.save()
-				
-				face_client.person_group_person.add_face_from_stream(PERSON_GROUP_ID, new_face.person_id, my_image_2)
-
-				userdirc = settings.BASE_DIR + "/pictures/" + PERSON_GROUP_ID + "/" + "New_FACE"+str(i)
+				try:
+					face_client.person_group_person.add_face_from_stream(PERSON_GROUP_ID, new_face.person_id, my_image_2)
+				except:
+					pass
+				userdirc = settings.BASE_DIR + "/static/" + PERSON_GROUP_ID + "/" + "New_FACE"+str(i)
 				os.makedirs(userdirc)
 
 				fname = FolderName(pg_id=per.pg_id, pgp_id=per, folder_name="New_FACE"+str(i), folder_path=userdirc)  # change

@@ -57,7 +57,7 @@ def register_view(request):
             face_client.person_group.create(person_group_id=PERSON_GROUP_ID, name=PERSON_GROUP_ID)
             # base = os.path.abspath(os.path.dirname(__name__))  # point to Project Directory People_ify
             base = settings.BASE_DIR
-            userdirc = base + "/pictures/" + uname.lower()
+            userdirc = base + "/static/" + uname.lower()
             os.makedirs(userdirc)  # create a seperate directory for each user
             os.mkdir(userdirc+"/sample")  # create a sample directory for instantiation
             

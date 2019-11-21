@@ -17,7 +17,7 @@ def homepage(request, userid):
         # 1. get a "list" of all folder_names that are there inside picture/username excluding sample(be careful with paths)
         # 2. add that list to context below so that I can render it on webpage
         folder_list=[]
-        path = settings.BASE_DIR + "/pictures/" + userid.lower()  # may need to change
+        path = settings.BASE_DIR + "/static/" + userid.lower()  # may need to change
         folder_list = os.listdir(path)
         
         context = {
@@ -31,12 +31,13 @@ def homepage(request, userid):
 def view_folder(request, folder_name):
     if request.method == "GET":
         folder = FolderName.objects.get(folder_name = folder_name)
-        print(type(folder))
         folder_path = folder.folder_path
+        folder_path1 = folder_path.replace('/home/akshay/Code_/code/People_ify/People_ify/static/','',1)
+        print(folder)
         images = [f for f in os.listdir(folder_path) if os.path.isfile(os.path.join(folder_path, f))]
         image_path = []
         for i in images:
-            x = folder_path + "/" + i
+            x = folder_path1 + "/" + i  # "file://" + 
             image_path.append(x)
         context = {
             "images" : image_path,
