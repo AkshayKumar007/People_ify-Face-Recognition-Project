@@ -13,15 +13,12 @@ from django.conf import settings
 @login_required(login_url="/login")
 def homepage(request, userid):
     if request.method == "GET":
-        # to be done by Kanishk
-        # 1. get a "list" of all folder_names that are there inside picture/username excluding sample(be careful with paths)
-        # 2. add that list to context below so that I can render it on webpage
         folder_list=[]
         path = settings.BASE_DIR + "/static/" + userid.lower()  # may need to change
         folder_list = os.listdir(path)
         
         context = {
-            "uname": userid,
+            "uname": request.user.username,
             "folders" : folder_list
         }
         return render(request, "album_collection/collection.html", context)
@@ -47,10 +44,6 @@ def view_folder(request, folder_name):
 
 @login_required(login_url="/login")
 def upload(request, userid):
-    # to be done by Kanishk
-    # 1. everytime you create a pgp in face_identify, make it's entry in FolderName and all other tables
-    # 2. see media upload documentation in django before proceeding
-    # 3. call face_identify passing in PERSON_GROUP_ID = (requset.user.username).lower() as parameter
     if request.method == "GET":
         return render(request, 'album_collection/upload.html', {"uname": (request.user.username).lower() })
 
@@ -61,11 +54,17 @@ def upload(request, userid):
         # uploaded_file_url = fs.url(filename)
         print((request.user.username).lower())
         face_identify.main((request.user.username).lower())  # run function after image is uploaded
-        return render(request, "album_collection/collection.html", {"userid": request.user.username })
+        # return render(request, "album_collection/collection.html", {"uname": request.user.username })
+        folder_list=[]
+        path = settings.BASE_DIR + "/static/" + userid.lower()  # may need to change
+        folder_list = os.listdir(path)
         
-        # return render(request, 'core/simple_upload.html', {
-        #     'uploaded_file_url': uploaded_file_url
-        # })
+        context = {
+            "uname": request.user.username,
+            "folders" : folder_list
+        }
+        return render(request, "album_collection/collection.html", context)
+
     
 # c5229c3363cb4d659aea93939677eaa1
 # https://centralindia.api.cognitive.microsoft.com/
